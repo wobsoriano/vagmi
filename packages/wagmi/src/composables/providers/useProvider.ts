@@ -7,11 +7,11 @@ import { readonly, ref, watchEffect } from 'vue'
 import type { SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
 
-export type UseProviderArgs = Partial<GetProviderArgs>
+export type UseProviderArgs = SetMaybeRef<Partial<GetProviderArgs>>
 
 export function useProvider<TProvider extends providers.BaseProvider>({
   chainId,
-}: SetMaybeRef<UseProviderArgs> = {}) {
+}: UseProviderArgs = {}) {
   const provider = ref(klona(getProvider<TProvider>({ chainId: getMaybeRefValue(chainId) })))
 
   watchEffect((onInvalidate) => {
