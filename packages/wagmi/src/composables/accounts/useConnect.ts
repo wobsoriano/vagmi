@@ -9,7 +9,7 @@ import { useClient } from '../../plugin'
 import type { SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
 
-export type UseConnectArgs = SetMaybeRef<Partial<ConnectArgs>>
+export type UseConnectArgs = Partial<ConnectArgs>
 
 type MutationOptions = UseMutationOptions<ConnectResult, Error, ConnectArgs, unknown>
 export interface UseConnectConfig {
@@ -43,7 +43,7 @@ export function useConnect({
   onConnect,
   onError,
   onSettled,
-}: UseConnectArgs & UseConnectConfig = {}) {
+}: SetMaybeRef<UseConnectArgs> & UseConnectConfig = {}) {
   const client = useClient()
 
   const options = reactive({
@@ -59,15 +59,13 @@ export function useConnect({
     = useMutation(options)
 
   const connect = computed(() => {
-    return (connector_?: ConnectArgs['connector']) => {
-      return mutate(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
-    }
+    return (connector_?: ConnectArgs['connector']) =>
+      mutate(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
   })
 
   const connectAsync = computed(() => {
-    return (connector_?: ConnectArgs['connector']) => {
-      return mutateAsync(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
-    }
+    return (connector_?: ConnectArgs['connector']) =>
+      mutateAsync(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
   })
 
   const status_ = computed(() => {
