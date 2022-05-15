@@ -14,4 +14,5 @@ export {
   useEnsName,
   useEnsAddress,
   useEnsResolver,
+  useEnsAvatar,
 } from './ens'

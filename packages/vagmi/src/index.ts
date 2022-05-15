@@ -19,6 +19,7 @@ export {
   useEnsName,
   useEnsAddress,
   useEnsResolver,
+  useEnsAvatar,
 } from './composables'
 
 export {
