@@ -9,3 +9,7 @@ export {
 export { useProvider, useWebSocketProvider } from './providers'
 
 export { useChainId } from './utils'
+
+export {
+  useEnsName,
+} from './ens'

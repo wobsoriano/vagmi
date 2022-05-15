@@ -1,0 +1,1 @@
+export { useEnsName } from './useEnsName'
