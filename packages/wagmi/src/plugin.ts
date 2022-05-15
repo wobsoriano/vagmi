@@ -6,10 +6,9 @@ import type {
 import {
   createClient as createWagmiClient,
 } from '@wagmi/core'
-import {
+import type {
   InjectionKey,
   Plugin,
-  reactive,
 } from 'vue'
 import {
   inject,
@@ -54,7 +53,7 @@ export function createClient<
   return Object.assign(client, { queryClient })
 }
 
-export const VueWagmiClientKey: InjectionKey<DecoratedWagmiClient> = Symbol('wagmi')
+export const VagmiClientKey: InjectionKey<DecoratedWagmiClient> = Symbol('wagmi')
 
 export function updateState(
   state: Record<string, unknown>,
@@ -65,7 +64,7 @@ export function updateState(
   })
 }
 
-export function VueWagmiPlugin(client = createClient()): Plugin {
+export function VagmiPlugin(client = createClient()): Plugin {
   return {
     install(app) {
       // Setup vue-query
@@ -74,17 +73,16 @@ export function VueWagmiPlugin(client = createClient()): Plugin {
       })
 
       // Setup @wagmi/core
-      if (client.config.autoConnect) {
+      if (client.config.autoConnect)
         client.autoConnect()
-      }
 
-      app.provide(VueWagmiClientKey, client)
+      app.provide(VagmiClientKey, client)
     },
   }
 }
 
 export function useClient() {
-  const wagmiClient = inject(VueWagmiClientKey)
+  const wagmiClient = inject(VagmiClientKey)
   if (!wagmiClient)
     throw new Error('Must be used within VueWagmiPlugin')
 

@@ -33,14 +33,14 @@ importers:
       '@vitejs/plugin-vue': ^2.3.3
       ethers: ^5.6.5
       typescript: ^4.5.4
+      vagmi: workspace:*
       vite: ^2.9.9
       vue: ^3.2.25
       vue-tsc: ^0.34.7
-      vue-wagmi: workspace:*
     dependencies:
       ethers: 5.6.6
+      vagmi: link:../wagmi
       vue: 3.2.33
-      vue-wagmi: link:../wagmi
     devDependencies:
       '@vitejs/plugin-vue': 2.3.3_vite@2.9.9+vue@3.2.33
       typescript: 4.6.4

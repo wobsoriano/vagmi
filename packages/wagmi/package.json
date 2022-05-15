@@ -1,6 +1,6 @@
 {
-  "name": "vue-wagmi",
-  "version": "0.0.7",
+  "name": "vagmi",
+  "version": "0.0.0",
   "description": "TODO",
   "keywords": [
     "vue",
@@ -11,15 +11,15 @@
     "wallet",
     "web3"
   ],
-  "homepage": "https://github.com/wobsoriano/vue-wagmi#readme",
+  "homepage": "https://github.com/wobsoriano/vagmi#readme",
   "bugs": {
-    "url": "https://github.com/wobsoriano/vue-wagmi/issues"
+    "url": "https://github.com/wobsoriano/vagmi/issues"
   },
   "license": "MIT",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wobsoriano/vue-wagmi.git"
+    "url": "git+https://github.com/wobsoriano/vagmi.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

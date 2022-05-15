@@ -1,8 +1,8 @@
 export {
   createClient,
   createClient as createWagmiClient,
-  VueWagmiPlugin,
-  VueWagmiPlugin as Plugin,
+  VagmiPlugin,
+  VagmiPlugin as Plugin,
   useClient,
   useClient as useWagmiClient,
 } from './plugin'

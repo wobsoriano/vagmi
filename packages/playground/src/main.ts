@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import { createClient, defaultChains, VueWagmiPlugin } from 'vue-wagmi'
+import { VagmiPlugin, createClient, defaultChains } from 'vagmi'
 
-import { MetaMaskConnector } from 'vue-wagmi/connectors/metaMask'
+import { MetaMaskConnector } from 'vagmi/connectors/metaMask'
+import App from './App.vue'
 
 const chains = defaultChains
 
@@ -17,5 +17,5 @@ const client = createClient({
 })
 
 const app = createApp(App)
-app.use(VueWagmiPlugin(client))
+app.use(VagmiPlugin(client))
 app.mount('#app')

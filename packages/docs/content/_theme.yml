@@ -1,8 +1,8 @@
-title: Vue Wagmi
+title: vagmi
 
 url: "https://docus.dev"
 
-description: Write pages in markdown, use Vue components and enjoy the power of Nuxt with a blazing fast developer experience.
+description: Vue composables for Ethereum.
 
 socials:
   twitter: "@docus_"
@@ -16,8 +16,8 @@ cover:
   alt: A screenshot of a website built with Docus with the Docus logo on top of it.
 
 header:
-  title: false
-  logo: true
+  title: vagmi
+  logo: false
 
 footer:
   credits:

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, watchEffect } from 'vue';
-import { useAccount, useConnect, useDisconnect, useBalance } from 'vue-wagmi'
+import { computed, watch, watchEffect } from 'vue'
+import { useAccount, useBalance, useConnect, useDisconnect } from 'vagmi'
 
-
-const { connect, connectors, error, isConnecting, pendingConnector } =
-    useConnect()
+const { connect, connectors, error, isConnecting, pendingConnector }
+    = useConnect()
 const { data: account } = useAccount()
 const { disconnect } = useDisconnect()
 const { data: balance, isError, isLoading } = useBalance({
@@ -20,19 +19,25 @@ watchEffect(() => {
 
 <template>
   <div>
-    <div v-if="account">{{ account.address }}</div>
+    <div v-if="account">
+      {{ account.address }}
+    </div>
     <button
-      :disabled="!c.ready"
       v-for="c in connectors"
       :key="c.id"
+      :disabled="!c.ready"
       @click="connect(c)"
     >
       {{ c.name }}
       {{ !c.ready ? ' (unsupported)' : '' }}
       {{ isConnecting && c.id === pendingConnector?.id ? ' (connecting)' : '' }}
     </button>
-    <button @click="disconnect">Disconnect</button>
-    <div v-if="error">{{ error.message }}</div>
+    <button @click="disconnect">
+      Disconnect
+    </button>
+    <div v-if="error">
+      {{ error.message }}
+    </div>
   </div>
 </template>
 
