@@ -39,7 +39,7 @@ importers:
       vue-tsc: ^0.34.7
     dependencies:
       ethers: 5.6.6
-      vagmi: link:../wagmi
+      vagmi: link:../vagmi
       vue: 3.2.33
     devDependencies:
       '@vitejs/plugin-vue': 2.3.3_vite@2.9.9+vue@3.2.33
@@ -47,7 +47,7 @@ importers:
       vite: 2.9.9
       vue-tsc: 0.34.13_typescript@4.6.4
 
-  packages/wagmi:
+  packages/vagmi:
     specifiers:
       '@antfu/ni': ^0.16.2
       '@coinbase/wallet-sdk': ^3.0.11
