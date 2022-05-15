@@ -1,9 +1,9 @@
 import type {
-  FetchEnsAddressArgs,
-  FetchEnsAddressResult,
+  FetchEnsResolverArgs,
+  FetchEnsResolverResult,
 } from '@wagmi/core'
 import {
-  fetchEnsAddress,
+  fetchEnsResolver,
 } from '@wagmi/core'
 import { computed, reactive } from 'vue'
 import { useQuery } from 'vue-query'
@@ -12,9 +12,9 @@ import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
 import { useChainId } from '../utils'
 
-export type UseEnsAddressArgs = Partial<FetchEnsAddressArgs>
+export type UseEnsResolverArgs = Partial<FetchEnsResolverArgs>
 
-export type UseEnsAddressConfig = QueryConfig<FetchEnsAddressResult, Error>
+export type UseEnsResolverConfig = QueryConfig<FetchEnsResolverResult, Error>
 
 export const queryKey = ({
   chainId,
@@ -22,17 +22,17 @@ export const queryKey = ({
 }: {
   chainId?: number
   name?: string
-}) => [{ entity: 'ensAddress', chainId, name }] as const
+}) => [{ entity: 'ensResolver', chainId, name }] as const
 
 const queryFn = ({
   queryKey: [{ chainId, name }],
 }: QueryFunctionArgs<typeof queryKey>) => {
   if (!name)
     throw new Error('name is required')
-  return fetchEnsAddress({ chainId, name })
+  return fetchEnsResolver({ chainId, name })
 }
 
-export function useEnsAddress({
+export function useEnsResolver({
   cacheTime,
   chainId: chainId_,
   enabled = true,
@@ -42,7 +42,7 @@ export function useEnsAddress({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseEnsAddressArgs> & UseEnsAddressConfig = {}) {
+}: SetMaybeRef<UseEnsResolverArgs> & UseEnsResolverConfig = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({
