@@ -5,7 +5,8 @@
     "dev": "turbo run dev --parallel",
     "typecheck": "turbo run typecheck",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix"
+    "lint:fix": "pnpm lint --fix",
+    "docs:dev": "pnpm --filter docs dev"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.23.0",

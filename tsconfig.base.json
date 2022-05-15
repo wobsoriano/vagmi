@@ -10,17 +10,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "types": [
       "@ethersproject/abstract-provider",
       "@ethersproject/abstract-signer",
       "@ethersproject/providers"
     ]
-  },
-  "exclude": ["node_modules", "**/dist/**"],
-  "include": ["packages/**/*"]
+  }
 }
