@@ -1,0 +1,5 @@
+{
+  "main": "../../dist/connectors/coinbaseWallet.js",
+  "module": "../../dist/connectors/coinbaseWallet.mjs",
+  "types": "../../dist/connectors/coinbaseWallet.d.ts"
+}

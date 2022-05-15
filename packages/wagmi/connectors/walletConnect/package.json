@@ -1,0 +1,5 @@
+{
+  "main": "../../dist/connectors/walletConnect.js",
+  "module": "../../dist/connectors/walletConnect.mjs",
+  "types": "../../dist/connectors/walletConnect.d.ts"
+}

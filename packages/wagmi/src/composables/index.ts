@@ -2,8 +2,8 @@ export {
   useAccount,
   useConnect,
   useDisconnect,
-  useSignMessage,
-  useSigner,
+  useNetwork,
+  useBalance
 } from './accounts'
 
 export { useProvider, useWebSocketProvider } from './providers'

@@ -15,8 +15,9 @@ export {
   useAccount,
   useConnect,
   useDisconnect,
+  useBalance,
   useProvider,
-  useSignMessage,
+  useNetwork,
   useWebSocketProvider,
 } from './composables'
 

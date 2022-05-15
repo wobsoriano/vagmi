@@ -6,9 +6,10 @@ import type {
 import {
   createClient as createWagmiClient,
 } from '@wagmi/core'
-import type {
+import {
   InjectionKey,
   Plugin,
+  reactive,
 } from 'vue'
 import {
   inject,
@@ -73,8 +74,9 @@ export function VueWagmiPlugin(client = createClient()): Plugin {
       })
 
       // Setup @wagmi/core
-      if (client.config.autoConnect)
+      if (client.config.autoConnect) {
         client.autoConnect()
+      }
 
       app.provide(VueWagmiClientKey, client)
     },

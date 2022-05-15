@@ -10,17 +10,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "skipLibCheck": true,
-    "types": [
-      "@ethersproject/abstract-provider",
-      "@ethersproject/abstract-signer",
-      "@ethersproject/providers"
-    ]
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "**/dist/**"],
-  "include": ["packages/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

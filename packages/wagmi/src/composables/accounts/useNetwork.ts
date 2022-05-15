@@ -1,3 +1,4 @@
+import { tryOnScopeDispose } from '@vueuse/core'
 import type {
   SwitchNetworkArgs,
   SwitchNetworkResult,
@@ -7,7 +8,7 @@ import {
   switchNetwork,
   watchNetwork,
 } from '@wagmi/core'
-import { computed, onScopeDispose, reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useMutation } from 'vue-query'
 
 import { useClient } from '../../plugin'
@@ -28,7 +29,7 @@ export const mutationKey = (args: UseNetworkArgs) => [
 
 const mutationFn = (args: UseNetworkArgs) => {
   const { chainId } = args
-  if (!getMaybeRefValue(chainId))
+  if (!chainId)
     throw new Error('chainId is required')
   return switchNetwork({ chainId: getMaybeRefValue(chainId)! })
 }
@@ -47,7 +48,7 @@ export function useNetwork({
   const connector = client.connector
 
   const options = reactive({
-    mutationKey: mutationKey({ chainId: getMaybeRefValue(chainId) }),
+    mutationKey: computed(() => mutationKey({ chainId: getMaybeRefValue(chainId) })),
     mutationFn,
     onError,
     onMutate,
@@ -73,7 +74,7 @@ export function useNetwork({
     network.value = data
   })
 
-  onScopeDispose(() => {
+  tryOnScopeDispose(() => {
     unwatch()
   })
 

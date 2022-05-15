@@ -10,7 +10,7 @@ import type { SetMaybeRef } from '../../types'
 
 export type UseWebSocketProviderArgs = SetMaybeRef<Partial<GetWebSocketProviderArgs>>
 
-export function useWebSocketProvider({ chainId }: UseWebSocketProviderArgs = {}) {
+export function useWebSocketProvider({ chainId }: UseWebSocketProviderArgs = {}): any {
   const initialValue = getMaybeRefValue(chainId)
   const webSocketProvider = ref(
     getWebSocketProvider({ chainId: initialValue }),

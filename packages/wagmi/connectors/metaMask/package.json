@@ -1,0 +1,5 @@
+{
+  "main": "../../dist/connectors/metaMask.js",
+  "module": "../../dist/connectors/metaMask.mjs",
+  "types": "../../dist/connectors/metaMask.d.ts"
+}

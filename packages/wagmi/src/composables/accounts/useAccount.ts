@@ -2,7 +2,7 @@ import type { GetAccountResult } from '@wagmi/core'
 import { getAccount, watchAccount } from '@wagmi/core'
 import { useQuery, useQueryClient } from 'vue-query'
 import type { UseQueryOptions } from 'vue-query'
-import { onScopeDispose, reactive } from 'vue'
+import { tryOnScopeDispose } from '@vueuse/core'
 
 export type UseAccountConfig = Pick<
   UseQueryOptions<GetAccountResult, Error>,
@@ -26,22 +26,21 @@ export function useAccount({
 }: UseAccountConfig = {}) {
   const queryClient = useQueryClient()
 
-  const options = reactive({
-    queryKey: queryKey(),
-    queryFn,
+  const accountQuery = useQuery(queryKey(), queryFn, {
+    staleTime: 0,
     suspense,
     onError,
     onSettled,
     onSuccess,
   })
 
-  const accountQuery = useQuery(options)
-
   const unwatch = watchAccount((data) => {
-    queryClient.setQueryData(queryKey(), data?.address ? data : null)
+    queryClient.setQueryData(queryKey(), data?.address ? data : {})
   })
 
-  onScopeDispose(unwatch)
+  tryOnScopeDispose(() => {
+    unwatch()
+  })
 
   return accountQuery
 }

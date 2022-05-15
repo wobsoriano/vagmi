@@ -32,7 +32,7 @@ export const mutationKey = (args: UseConnectArgs) => [
 
 const mutationFn = (args: UseConnectArgs) => {
   const { connector } = args
-  if (!getMaybeRefValue(connector))
+  if (!connector)
     throw new Error('connector is required')
   return connect({ connector: getMaybeRefValue(connector)! })
 }
@@ -47,7 +47,7 @@ export function useConnect({
   const client = useClient()
 
   const options = reactive({
-    mutationKey: mutationKey({ connector: getMaybeRefValue(connector) }),
+    mutationKey: computed(() => mutationKey({ connector: getMaybeRefValue(connector) })),
     mutationFn,
     onError,
     onMutate: onBeforeConnect,
