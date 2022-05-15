@@ -53,7 +53,7 @@ export function createClient<
   return Object.assign(client, { queryClient })
 }
 
-export const VagmiClientKey: InjectionKey<DecoratedWagmiClient> = Symbol('wagmi')
+export const VagmiClientKey: InjectionKey<DecoratedWagmiClient> = Symbol('vagmi')
 
 export function updateState(
   state: Record<string, unknown>,
@@ -84,7 +84,7 @@ export function VagmiPlugin(client = createClient()): Plugin {
 export function useClient() {
   const wagmiClient = inject(VagmiClientKey)
   if (!wagmiClient)
-    throw new Error('Must be used within VueWagmiPlugin')
+    throw new Error('Must be used within VagmiPlugin')
 
   return wagmiClient
 }
