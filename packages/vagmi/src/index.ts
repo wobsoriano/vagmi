@@ -1,14 +1,11 @@
 export {
   createClient,
-  createClient as createWagmiClient,
   VagmiPlugin,
   VagmiPlugin as Plugin,
   useClient,
-  useClient as useWagmiClient,
 } from './plugin'
 export type {
   ClientConfig,
-  ClientConfig as WagmiClientConfig,
 } from './plugin'
 
 export {
