@@ -14,9 +14,6 @@
     "playground#dev": {
       "dependsOn": ["vue-wagmi#build"],
       "cache": false
-    },
-    "typecheck": {
-      "cache": false
     }
   }
 }
