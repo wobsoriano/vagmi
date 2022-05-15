@@ -10,8 +10,8 @@ socials:
 debug: false
 
 github:
-  repository: "wobsoriano/vagmi"
-  branch: "master"
+  repository: wobsoriano/vagmi
+  branch: master
   dir: docs
   releases: false
 

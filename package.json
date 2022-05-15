@@ -1,12 +1,11 @@
 {
   "name": "root",
+  "packageManager": "pnpm@7.0.0",
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "typecheck": "turbo run typecheck",
+    "dev": "nr --parallel --filter playground --filter vagmi dev",
+    "dev:docs": "nr --filter docs dev",
     "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
-    "docs:dev": "pnpm --filter docs dev"
+    "lint:fix": "nr lint --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.23.0",
@@ -15,7 +14,7 @@
     "@ethersproject/abstract-signer": "^5.6.1",
     "@ethersproject/providers": "^5.6.6",
     "eslint": "^8.14.0",
-    "turbo": "^1.2.8"
+    "pnpm": "^7.1.0"
   },
   "eslintConfig": {
     "extends": "@antfu"
