@@ -17,6 +17,7 @@ export {
   useNetwork,
   useWebSocketProvider,
   useEnsName,
+  useEnsAddress,
 } from './composables'
 
 export {

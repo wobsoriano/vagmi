@@ -12,4 +12,5 @@ export { useChainId } from './utils'
 
 export {
   useEnsName,
+  useEnsAddress,
 } from './ens'
