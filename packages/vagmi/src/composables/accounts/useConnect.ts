@@ -34,7 +34,7 @@ const mutationFn = (args: UseConnectArgs) => {
   const { connector } = args
   if (!connector)
     throw new Error('connector is required')
-  return connect({ connector: getMaybeRefValue(connector)! })
+  return connect({ connector })
 }
 
 export function useConnect({

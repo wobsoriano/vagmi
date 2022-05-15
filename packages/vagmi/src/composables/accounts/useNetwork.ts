@@ -31,7 +31,7 @@ const mutationFn = (args: UseNetworkArgs) => {
   const { chainId } = args
   if (!chainId)
     throw new Error('chainId is required')
-  return switchNetwork({ chainId: getMaybeRefValue(chainId)! })
+  return switchNetwork({ chainId })
 }
 
 export function useNetwork({
