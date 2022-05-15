@@ -23,9 +23,11 @@ importers:
   docs:
     specifiers:
       '@docus/docs-theme': npm:@docus/docs-theme-edge@latest
+      '@docus/github': npm:@docus/github-edge@latest
       nuxt: ^3.0.0-rc.3
     devDependencies:
       '@docus/docs-theme': /@docus/docs-theme-edge/3.0.0-89b484b
+      '@docus/github': /@docus/github-edge/1.2.6-89b484b
       nuxt: 3.0.0-rc.3
 
   examples/dev:
@@ -624,6 +626,19 @@ packages:
       - utf-8-validate
       - vite
       - vue
+      - webpack
+    dev: true
+
+  /@docus/github-edge/1.2.6-89b484b:
+    resolution: {integrity: sha512-6YgMjw4nclTra//n2kGMCu4H8+exAF6BtWUy2eOIDmPS1JJEDHy/pd1cPU+zYjrGwnY714wzKPNM0ugnwpG1Xw==}
+    dependencies:
+      '@nuxt/kit': 3.0.0-rc.3
+      remark-github: 11.2.3
+    transitivePeerDependencies:
+      - esbuild
+      - rollup
+      - supports-color
+      - vite
       - webpack
     dev: true
 
