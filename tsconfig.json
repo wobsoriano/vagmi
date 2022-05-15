@@ -15,7 +15,8 @@
     "types": [
       "@ethersproject/abstract-provider",
       "@ethersproject/abstract-signer",
-      "@ethersproject/providers"
+      "@ethersproject/providers",
+      "vitest/globals"
     ]
   }
 }
