@@ -1,14 +1,16 @@
-import { useQueryClient, useQuery } from 'vue-query'
-import {
+import { useQuery, useQueryClient } from 'vue-query'
+import type {
   FetchBlockNumberArgs,
   FetchBlockNumberResult,
+} from '@wagmi/core'
+import {
   fetchBlockNumber,
 } from '@wagmi/core'
 
-import { QueryConfig, SetMaybeRef, QueryFunctionArgs } from '../../types'
+import { computed, reactive, watchEffect } from 'vue'
+import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
 import { useProvider, useWebSocketProvider } from '../providers'
 import { useChainId } from '../utils'
-import { computed, reactive, watchEffect } from 'vue'
 import { getMaybeRefValue } from '../../utils'
 
 type UseBlockNumberArgs = Partial<FetchBlockNumberArgs> & {
@@ -44,7 +46,8 @@ export function useBlockNumber({
   const queryClient = useQueryClient()
 
   watchEffect((onInvalidate) => {
-    if (!getMaybeRefValue(watch)) return
+    if (!getMaybeRefValue(watch))
+      return
 
     const listener = (blockNumber: number) => {
       // Just to be safe in case the provider implementation
@@ -53,7 +56,7 @@ export function useBlockNumber({
     }
 
     const provider_ = webSocketProvider ?? provider
-    provider_.on('block', listener) 
+    provider_.on('block', listener)
 
     onInvalidate(() => {
       provider_.off('block', listener)

@@ -1,11 +1,11 @@
 title: vagmi
 
-url: "https://docus.dev"
+url: 'https://docus.dev'
 
 description: Vue composables for Ethereum.
 
 socials:
-  twitter: "@docus_"
+  twitter: '@docus_'
 
 debug: false
 
@@ -24,9 +24,9 @@ footer:
     icon: IconNuxtLabs
     text: Made by NuxtLabs
   icons:
-  - label: NuxtJS
-    href: https://nuxtjs.org
-    component: IconNuxt
-  - label: Vue Telescope
-    href: https://vuetelescope.com
-    component: IconVueTelescope
+    - label: NuxtJS
+      href: https://nuxtjs.org
+      component: IconNuxt
+    - label: Vue Telescope
+      href: https://vuetelescope.com
+      component: IconVueTelescope

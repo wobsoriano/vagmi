@@ -1,8 +1,9 @@
-import { FetchBalanceArgs, FetchBalanceResult, fetchBalance } from '@wagmi/core'
+import type { FetchBalanceArgs, FetchBalanceResult } from '@wagmi/core'
+import { fetchBalance } from '@wagmi/core'
 import { computed, reactive, watch as vueWatch } from 'vue'
 import { useQuery } from 'vue-query'
 
-import { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
+import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
 import { useBlockNumber } from '../network-status'
 import { useChainId } from '../utils'
@@ -27,7 +28,8 @@ export const queryKey = ({
 const queryFn = ({
   queryKey: [{ addressOrName, chainId, formatUnits, token }],
 }: QueryFunctionArgs<typeof queryKey>) => {
-  if (!addressOrName) throw new Error('address is required')
+  if (!addressOrName)
+    throw new Error('address is required')
   return fetchBalance({ addressOrName, chainId, formatUnits, token })
 }
 
@@ -51,7 +53,7 @@ export function useBalance({
       addressOrName: getMaybeRefValue(addressOrName),
       chainId: getMaybeRefValue(chainId),
       formatUnits: getMaybeRefValue(formatUnits),
-      token: getMaybeRefValue(token)
+      token: getMaybeRefValue(token),
     })),
     queryFn,
     cacheTime,
@@ -67,10 +69,14 @@ export function useBalance({
   const { data: blockNumber } = useBlockNumber({ watch })
 
   vueWatch(blockNumber, () => {
-    if (!getMaybeRefValue(enabled)) return
-    if (!getMaybeRefValue(watch)) return
-    if (!getMaybeRefValue(blockNumber)) return
-    if (!getMaybeRefValue(addressOrName)) return
+    if (!getMaybeRefValue(enabled))
+      return
+    if (!getMaybeRefValue(watch))
+      return
+    if (!getMaybeRefValue(blockNumber))
+      return
+    if (!getMaybeRefValue(addressOrName))
+      return
 
     balanceQuery.refetch.value()
   })

@@ -4,13 +4,13 @@ const connectors = [
   'coinbaseWallet',
   'metaMask',
   'walletConnect',
-  'injected'
+  'injected',
 ]
 
 export default defineConfig({
   entry: [
     'src/index.ts',
-    ...connectors.map(c => `src/connectors/${c}.ts`)
+    ...connectors.map(c => `src/connectors/${c}.ts`),
   ],
   dts: true,
   clean: false,

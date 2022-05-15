@@ -3,7 +3,7 @@ export {
   useConnect,
   useDisconnect,
   useNetwork,
-  useBalance
+  useBalance,
 } from './accounts'
 
 export { useProvider, useWebSocketProvider } from './providers'

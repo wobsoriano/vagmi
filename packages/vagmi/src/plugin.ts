@@ -82,9 +82,9 @@ export function VagmiPlugin(client = createClient()): Plugin {
 }
 
 export function useClient() {
-  const wagmiClient = inject(VagmiClientKey)
-  if (!wagmiClient)
+  const vagmiClient = inject(VagmiClientKey)
+  if (!vagmiClient)
     throw new Error('Must be used within VagmiPlugin')
 
-  return wagmiClient
+  return vagmiClient
 }
