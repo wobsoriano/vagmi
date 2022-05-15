@@ -2,4 +2,4 @@
 
 Vue Composables for Ethereum
 
-<img src="./sample.png" />
+<img src="sample.png" />
