@@ -79,6 +79,8 @@ export function useBalance({
       return
 
     balanceQuery.refetch.value()
+  }, {
+    immediate: true,
   })
 
   return balanceQuery

@@ -67,6 +67,8 @@ export function useFeeData({
       return
 
     feeDataQuery.refetch.value()
+  }, {
+    immediate: true,
   })
 
   return feeDataQuery

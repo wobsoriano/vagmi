@@ -4,7 +4,11 @@ import type { QueryFunctionContext, UseMutationOptions, UseQueryOptions } from '
 export type QueryFunctionArgs<T extends (...args: any) => any> =
   QueryFunctionContext<ReturnType<T>>
 
-export type SetMaybeRef<T> = { [KeyType in keyof T]: MaybeRef<T[KeyType]> }
+type IgnoreMaybeRef = 'onError' | 'onSettled' | 'onSuccess' | 'onBeforeConnect' | 'onConnect'
+
+export type SetMaybeRef<T extends object> = {
+  [KeyType in keyof T]: KeyType extends IgnoreMaybeRef ? T[KeyType] : MaybeRef<T[KeyType]>
+}
 
 export interface QueryConfig<Data, Error> {
   /**

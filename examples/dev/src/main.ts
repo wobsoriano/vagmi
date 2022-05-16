@@ -1,18 +1,50 @@
 import { createApp } from 'vue'
-import { VagmiPlugin, createClient, defaultChains } from 'vagmi'
+import { providers } from 'ethers'
+import { VagmiPlugin, chain, createClient, defaultChains } from 'vagmi'
 
 import { MetaMaskConnector } from 'vagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'vagmi/connectors/walletConnect'
+import { InjectedConnector } from 'vagmi/connectors/injected'
 import App from './App.vue'
 
+const infuraId = import.meta.env.VITE_INFURA_ID as string
 const chains = defaultChains
+const defaultChain = chain.mainnet
+
+const isChainSupported = (chainId?: number) =>
+  chains.some(x => x.id === chainId)
 
 // Set up connectors
 const client = createClient({
   autoConnect: true,
-  connectors() {
+  connectors({ chainId }) {
+    const chain = chains.find(x => x.id === chainId) ?? defaultChain
+    const rpcUrl = chain.rpcUrls.infura
+      ? `${chain.rpcUrls.infura}/${infuraId}`
+      : chain.rpcUrls.default
+
+    console.log(rpcUrl)
+
     return [
       new MetaMaskConnector({ chains }),
+      new WalletConnectConnector({
+        chains,
+        options: {
+          qrcode: true,
+          rpc: { [chain.id]: rpcUrl },
+        },
+      }),
+      new InjectedConnector({ chains, options: { name: 'Injected' } }),
     ]
+  },
+  provider({ chainId }) {
+    return new providers.InfuraProvider(isChainSupported(chainId) ? chainId : defaultChain.id, infuraId)
+  },
+  webSocketProvider({ chainId }) {
+    return new providers.InfuraProvider(
+      isChainSupported(chainId) ? chainId : defaultChain.id,
+      infuraId,
+    )
   },
 })
 
