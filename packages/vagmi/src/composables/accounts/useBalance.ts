@@ -46,7 +46,7 @@ export function useBalance({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseBalanceArgs> & UseBalanceConfig = {}) {
+}: SetMaybeRef<UseBalanceArgs & UseBalanceConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
   const options = reactive({
     queryKey: computed(() => queryKey({

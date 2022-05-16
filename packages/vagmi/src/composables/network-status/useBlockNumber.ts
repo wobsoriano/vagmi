@@ -39,7 +39,7 @@ export function useBlockNumber({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseBlockNumberArgs> & UseBlockNumberConfig = {}) {
+}: SetMaybeRef<UseBlockNumberArgs & UseBlockNumberConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
   const provider = useProvider()
   const webSocketProvider = useWebSocketProvider()

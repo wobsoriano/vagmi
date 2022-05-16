@@ -40,7 +40,7 @@ export function useNetwork({
   onMutate,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseNetworkArgs> & UseNetworkConfig = {}) {
+}: SetMaybeRef<UseNetworkArgs & UseNetworkConfig> = {}) {
   const network = ref(getNetwork())
 
   const client = useClient()

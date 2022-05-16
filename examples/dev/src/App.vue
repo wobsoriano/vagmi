@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, watch, watchEffect } from 'vue'
-import { useAccount, useBalance, useConnect, useDisconnect } from 'vagmi'
+import { computed, ref, watch, watchEffect } from 'vue'
+import { useAccount, useBalance, useConnect, useDisconnect, useEnsName } from 'vagmi'
 
 const { connect, connectors, error, isConnecting, pendingConnector }
     = useConnect()
@@ -9,11 +9,13 @@ const { disconnect } = useDisconnect()
 const { data: balance, isError, isLoading } = useBalance({
   addressOrName: computed(() => account.value?.address),
 })
+const { data: ensName } = useEnsName({
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  enabled: ref(false),
+})
 
 watchEffect(() => {
-  console.log('account', account.value)
-  console.log('balance', balance.value)
-  console.log('balance isLoading', isLoading.value)
+  console.log('ensName', ensName.value)
 })
 </script>
 

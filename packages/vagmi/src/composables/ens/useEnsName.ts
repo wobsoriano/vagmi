@@ -37,7 +37,7 @@ export function useEnsName({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseEnsNameArgs> & UseEnsNameConfig = {}) {
+}: SetMaybeRef<UseEnsNameArgs & UseEnsNameConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({

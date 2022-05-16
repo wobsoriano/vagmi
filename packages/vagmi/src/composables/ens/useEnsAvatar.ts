@@ -42,7 +42,7 @@ export function useEnsAvatar({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseEnsAvatarArgs> & UseEnsLookupConfig = {}) {
+}: SetMaybeRef<UseEnsAvatarArgs & UseEnsLookupConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({

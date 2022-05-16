@@ -42,7 +42,7 @@ export function useEnsResolver({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseEnsResolverArgs> & UseEnsResolverConfig = {}) {
+}: SetMaybeRef<UseEnsResolverArgs & UseEnsResolverConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({

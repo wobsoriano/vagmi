@@ -43,7 +43,7 @@ export function useConnect({
   onConnect,
   onError,
   onSettled,
-}: SetMaybeRef<UseConnectArgs> & UseConnectConfig = {}) {
+}: SetMaybeRef<UseConnectArgs & UseConnectConfig> = {}) {
   const client = useClient()
 
   const options = reactive({

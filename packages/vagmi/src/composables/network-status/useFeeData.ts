@@ -39,7 +39,7 @@ export function useFeeData({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseFeeDataArgs> & UseFeedDataConfig = {}) {
+}: SetMaybeRef<UseFeeDataArgs & UseFeedDataConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({

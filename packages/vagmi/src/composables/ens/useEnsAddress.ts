@@ -42,7 +42,7 @@ export function useEnsAddress({
   onError,
   onSettled,
   onSuccess,
-}: SetMaybeRef<UseEnsAddressArgs> & UseEnsAddressConfig = {}) {
+}: SetMaybeRef<UseEnsAddressArgs & UseEnsAddressConfig> = {}) {
   const chainId = useChainId({ chainId: chainId_ })
 
   const options = reactive({
