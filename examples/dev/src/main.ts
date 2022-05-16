@@ -23,8 +23,6 @@ const client = createClient({
       ? `${chain.rpcUrls.infura}/${infuraId}`
       : chain.rpcUrls.default
 
-    console.log(rpcUrl)
-
     return [
       new MetaMaskConnector({ chains }),
       new WalletConnectConnector({

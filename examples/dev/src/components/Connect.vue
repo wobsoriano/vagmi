@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useConnect, useDisconnect } from 'vagmi'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 const {
   activeConnector,
@@ -15,6 +15,10 @@ const { disconnect } = useDisconnect()
 const filteredConnectors = computed(() => {
   return connectors.value.filter(c => c.ready && c.id !== activeConnector.value?.id)
 })
+
+watch(activeConnector, (val) => {
+  console.log(val)
+})
 </script>
 
 <template>
@@ -28,10 +32,10 @@ const filteredConnectors = computed(() => {
         {{ c.name }}
         {{ isConnecting && c.id === pendingConnector?.id ? ' (connecting)' : '' }}
       </button>
+    </div>
 
-      <div v-if="error">
-        {{ error.message }}
-      </div>
+    <div v-if="error">
+      {{ error.message }}
     </div>
   </div>
 </template>

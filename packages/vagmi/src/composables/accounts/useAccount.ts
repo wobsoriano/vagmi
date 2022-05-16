@@ -35,7 +35,7 @@ export function useAccount({
   })
 
   const unwatch = watchAccount((data) => {
-    queryClient.setQueryData(queryKey(), data?.address ? data : {})
+    queryClient.setQueryData(queryKey(), data?.address ? data : null)
   })
 
   tryOnScopeDispose(() => {
