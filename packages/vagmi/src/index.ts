@@ -20,6 +20,8 @@ export {
   useEnsAddress,
   useEnsResolver,
   useEnsAvatar,
+  useBlockNumber,
+  useFeeData,
 } from './composables'
 
 export {
