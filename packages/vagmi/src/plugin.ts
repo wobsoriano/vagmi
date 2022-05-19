@@ -99,7 +99,7 @@ export function useClient() {
   return vagmiClient
 }
 
-export function useReadonlyClient() {
+export function useReadonlyClient(): Readonly<ReturnType<typeof useClient>> {
   const client = useClient()
-  return readonly(client)
+  return readonly(client) as any
 }
