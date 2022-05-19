@@ -17,7 +17,7 @@ const filteredConnectors = computed(() => {
 })
 
 watch(activeConnector, (val) => {
-  console.log(val)
+  console.log('Active connector', val)
 })
 </script>
 
