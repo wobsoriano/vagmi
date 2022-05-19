@@ -45,8 +45,6 @@ export function useNetwork({
 
   const client = useClient()
 
-  const connector = client.connector
-
   const options = reactive({
     mutationKey: computed(() => mutationKey({ chainId: getMaybeRefValue(chainId) })),
     mutationFn,
@@ -88,6 +86,8 @@ export function useNetwork({
       mutateAsync(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
   })
 
+  const connector = computed(() => client.value.connector)
+
   return {
     activeChain: computed(() => network.value.chain),
     chains: computed(() => network.value.chains ?? []),
@@ -100,8 +100,8 @@ export function useNetwork({
     pendingChainId: computed(() => variables.value?.chainId),
     reset,
     status,
-    switchNetwork: computed(() => connector?.switchChain ? switchNetwork_.value : undefined),
-    switchNetworkAsync: computed(() => connector?.switchChain
+    switchNetwork: computed(() => connector.value?.switchChain ? switchNetwork_.value : undefined),
+    switchNetworkAsync: computed(() => connector.value?.switchChain
       ? switchNetworkAsync_.value
       : undefined),
     variables,

@@ -76,13 +76,13 @@ export function useConnect({
     | 'disconnected'
     | 'reconnecting'
 
-    if (client.status === 'reconnecting')
+    if (client.value.status === 'reconnecting')
       result = 'reconnecting'
-    else if (status.value === 'loading' || client.status === 'connecting')
+    else if (status.value === 'loading' || client.value.status === 'connecting')
       result = 'connecting'
-    else if (client.connector)
+    else if (client.value.connector)
       result = 'connected'
-    else if (!client.connector || status.value === 'success')
+    else if (!client.value.connector || status.value === 'success')
       result = 'disconnected'
     else result = status.value
 
@@ -90,10 +90,10 @@ export function useConnect({
   })
 
   const result = computed(() => ({
-    activeConnector: client.connector,
+    activeConnector: client.value.connector,
     connect: connect.value,
     connectAsync: connectAsync.value,
-    connectors: client.connectors,
+    connectors: client.value.connectors,
     data: data.value,
     error: error.value,
     isConnected: status_.value === 'connected',

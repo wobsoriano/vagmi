@@ -9,9 +9,14 @@ import {
 import type {
   InjectionKey,
   Plugin,
+  Ref,
 } from 'vue'
 import {
   inject,
+
+  shallowRef,
+
+  triggerRef,
 } from 'vue'
 import { QueryClient, VueQueryPlugin } from 'vue-query'
 
@@ -53,7 +58,7 @@ export function createClient<
   return Object.assign(client, { queryClient })
 }
 
-export const VagmiClientKey: InjectionKey<DecoratedWagmiClient> = Symbol('vagmi')
+export const VagmiClientKey: InjectionKey<Ref<DecoratedWagmiClient>> = Symbol('vagmi')
 
 export function updateState(
   state: Record<string, unknown>,
@@ -72,11 +77,17 @@ export function VagmiPlugin(client = createClient()): Plugin {
         queryClient: client.queryClient,
       })
 
+      const reactiveClient = shallowRef(client)
+
       // Setup @wagmi/core
       if (client.config.autoConnect)
         client.autoConnect()
 
-      app.provide(VagmiClientKey, client)
+      client.subscribe(() => {
+        triggerRef(reactiveClient)
+      })
+
+      app.provide(VagmiClientKey, reactiveClient)
     },
   }
 }
