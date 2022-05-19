@@ -36,7 +36,8 @@ export function useAccount({
 
   const unwatch = watchAccount((data) => {
     // TODO: Fix reactivity
-    queryClient.setQueryData(queryKey(), data?.address ? data : {})
+    queryClient.setQueryData(queryKey(), data?.address ? data : null)
+    accountQuery.refetch.value()
   })
 
   tryOnScopeDispose(() => {
