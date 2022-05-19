@@ -2,7 +2,7 @@ export {
   createClient,
   VagmiPlugin,
   VagmiPlugin as Plugin,
-  useClient,
+  useReadonlyClient as useClient,
 } from './plugin'
 export type {
   ClientConfig,

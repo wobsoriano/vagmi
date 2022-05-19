@@ -13,9 +13,8 @@ import type {
 } from 'vue'
 import {
   inject,
-
+  readonly,
   shallowRef,
-
   triggerRef,
 } from 'vue'
 import { QueryClient, VueQueryPlugin } from 'vue-query'
@@ -98,4 +97,9 @@ export function useClient() {
     throw new Error('Must be used within VagmiPlugin')
 
   return vagmiClient
+}
+
+export function useReadonlyClient() {
+  const client = useClient()
+  return readonly(client)
 }
