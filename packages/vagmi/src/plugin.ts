@@ -82,9 +82,15 @@ export function VagmiPlugin(client = createClient()): Plugin {
       if (client.config.autoConnect)
         client.autoConnect()
 
-      client.subscribe(() => {
+      const unsubscribe = client.subscribe(() => {
         triggerRef(reactiveClient)
       })
+
+      const originalUnmount = app.unmount
+      app.unmount = function vagmiUnmount() {
+        unsubscribe()
+        originalUnmount()
+      }
 
       app.provide(VagmiClientKey, reactiveClient)
     },
