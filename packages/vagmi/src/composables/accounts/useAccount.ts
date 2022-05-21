@@ -42,7 +42,7 @@ export function useAccount({
           address: null,
           connector: null,
         })
-    accountQuery.refetch.value()
+    accountQuery.refetch()
   })
 
   tryOnScopeDispose(() => {

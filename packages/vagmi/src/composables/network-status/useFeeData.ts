@@ -66,7 +66,7 @@ export function useFeeData({
     if (!getMaybeRefValue(blockNumber))
       return
 
-    feeDataQuery.refetch.value()
+    feeDataQuery.refetch()
   }, {
     immediate: true,
   })

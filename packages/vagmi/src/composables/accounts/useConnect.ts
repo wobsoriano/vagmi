@@ -2,12 +2,19 @@ import type { ConnectArgs, ConnectResult } from '@wagmi/core'
 import { connect } from '@wagmi/core'
 import { computed, reactive } from 'vue'
 import { useMutation } from 'vue-query'
-import type { UseMutationOptions, UseMutationResult } from 'vue-query/types'
+import type { UseMutationOptions, UseMutationReturnType } from 'vue-query'
 import { toRefs } from '@vueuse/core'
 
 import { useClient } from '../../plugin'
 import type { SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
+
+export type UseMutationResult<
+  TData = unknown,
+  TError = unknown,
+  TVariables = unknown,
+  TContext = unknown,
+> = UseMutationReturnType<TData, TError, TVariables, TContext>
 
 export type UseConnectArgs = Partial<ConnectArgs>
 
@@ -84,7 +91,7 @@ export function useConnect({
       result = 'connected'
     else if (!client.value.connector || status.value === 'success')
       result = 'disconnected'
-    else result = status.value
+    else result = status.value // TODO: Fix type
 
     return result
   })
@@ -100,7 +107,7 @@ export function useConnect({
     isConnecting: status_.value === 'connecting',
     isDisconnected: status_.value === 'disconnected',
     isError: status.value === 'error',
-    isIdle: status_.value === 'idle',
+    isIdle: status_.value === 'idle', // TODO: Fix type
     isReconnecting: status_.value === 'reconnecting',
     pendingConnector: variables.value?.connector,
     reset: reset.value,
