@@ -76,15 +76,11 @@ export function useNetwork({
     unwatch()
   })
 
-  const switchNetwork_ = computed(() => {
-    return (chainId_?: SwitchNetworkArgs['chainId']) =>
-      mutate(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
-  })
+  const switchNetwork_ = (chainId_?: SwitchNetworkArgs['chainId']) =>
+    mutate(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
 
-  const switchNetworkAsync_ = computed(() => {
-    return (chainId_?: SwitchNetworkArgs['chainId']) =>
-      mutateAsync(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
-  })
+  const switchNetworkAsync_ = (chainId_?: SwitchNetworkArgs['chainId']) =>
+    mutateAsync(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
 
   const connector = computed(() => client.value.connector)
 
@@ -100,10 +96,14 @@ export function useNetwork({
     pendingChainId: computed(() => variables.value?.chainId),
     reset,
     status,
-    switchNetwork: computed(() => connector.value?.switchChain ? switchNetwork_.value : undefined),
-    switchNetworkAsync: computed(() => connector.value?.switchChain
-      ? switchNetworkAsync_.value
-      : undefined),
+    switchNetwork: () => {
+      return connector.value?.switchChain ? switchNetwork_ : undefined
+    },
+    switchNetworkAsync: () => {
+      return connector.value?.switchChain
+        ? switchNetworkAsync_
+        : undefined
+    },
     variables,
   } as const
 }

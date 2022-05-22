@@ -35,13 +35,10 @@ export function useAccount({
   })
 
   const unwatch = watchAccount((data) => {
-    // TODO: Fix reactivity
+    // TODO: Fix reactivity and remove refetch
     queryClient.setQueryData(queryKey(), data?.address
       ? data
-      : {
-          address: null,
-          connector: null,
-        })
+      : null)
     accountQuery.refetch()
   })
 

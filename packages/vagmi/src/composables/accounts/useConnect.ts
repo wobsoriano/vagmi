@@ -91,7 +91,8 @@ export function useConnect({
       result = 'connected'
     else if (!client.value.connector || status.value === 'success')
       result = 'disconnected'
-    else result = status.value // TODO: Fix type
+      // @ts-expect-error: TODO: Fix type
+    else result = status.value
 
     return result
   })
@@ -107,7 +108,8 @@ export function useConnect({
     isConnecting: status_.value === 'connecting',
     isDisconnected: status_.value === 'disconnected',
     isError: status.value === 'error',
-    isIdle: status_.value === 'idle', // TODO: Fix type
+    // @ts-expect-error: TODO: Fix type
+    isIdle: status_.value === 'idle',
     isReconnecting: status_.value === 'reconnecting',
     pendingConnector: variables.value?.connector,
     reset: reset.value,

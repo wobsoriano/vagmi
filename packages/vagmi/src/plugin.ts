@@ -40,13 +40,13 @@ export function createClient<
       queries: {
         cacheTime: 1_000 * 60 * 60 * 24, // 24 hours
         // TODO: uncomment when persistor becomes available
-        // networkMode: 'offlineFirst',
+        networkMode: 'offlineFirst',
         refetchOnWindowFocus: false,
         retry: 0,
       },
       mutations: {
         // TODO: uncomment when persistor becomes available
-        // networkMode: 'offlineFirst',
+        networkMode: 'offlineFirst',
       },
     },
   }),
@@ -58,15 +58,6 @@ export function createClient<
 }
 
 export const VagmiClientKey: InjectionKey<Ref<DecoratedWagmiClient>> = Symbol('vagmi')
-
-export function updateState(
-  state: Record<string, unknown>,
-  update: Record<string, any>,
-): void {
-  Object.keys(state).forEach((key) => {
-    state[key] = update[key]
-  })
-}
 
 export function VagmiPlugin(client = createClient()): Plugin {
   return {
