@@ -66,7 +66,6 @@ importers:
       '@wagmi/core': ^0.2.5
       '@walletconnect/ethereum-provider': ^1.7.8
       bumpp: ^7.1.1
-      defu: ^6.0.0
       ethers: ^5.6.6
       jsdom: ^19.0.0
       klona: ^2.0.5
@@ -80,7 +79,6 @@ importers:
       '@vueuse/core': 8.5.0_vue@3.2.36
       '@wagmi/core': 0.2.5_vpujozss5cyb2lsbssfiph75xm
       '@walletconnect/ethereum-provider': 1.7.8
-      defu: 6.0.0
       klona: 2.0.5
       vue-query: 2.0.0-alpha.3_vue@3.2.36
     devDependencies:
@@ -3832,6 +3830,7 @@ packages:
 
   /defu/6.0.0:
     resolution: {integrity: sha512-t2MZGLf1V2rV4VBZbWIaXKdX/mUcYW0n2znQZoADBkGGxYL8EWqCuCZBmJPJ/Yy9fofJkyuuSuo5GSwo0XdEgw==}
+    dev: true
 
   /delayed-stream/1.0.0:
     resolution: {integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=}

@@ -51,7 +51,6 @@
     "@vueuse/core": "^8.5.0",
     "@wagmi/core": "^0.2.5",
     "@walletconnect/ethereum-provider": "^1.7.8",
-    "defu": "^6.0.0",
     "klona": "^2.0.5",
     "vue-query": "2.0.0-alpha.3"
   },
