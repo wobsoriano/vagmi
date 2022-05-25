@@ -5,9 +5,21 @@ export default defineNuxtConfig({
   generate: {
     routes: [],
   },
+  modules: ['@nuxthq/admin', '@docus/github'],
   extends: ['./node_modules/@docus/docs-theme'],
   github: {
-    repo: 'wobsoriano/vagmi',
+    repo: 'wobsoriano/vagmi'
+  },
+  vite: {
+    define: {
+      'process.env.FORCE_COLOR': {},
+      'process.env.NODE_DISABLE_COLORS': {},
+      'process.env.NO_COLOR': {},
+      'process.env.FORCE_TERM': {},
+    },
+  },
+  colorMode: {
+    preference: 'dark'
   },
   tailwindcss: {
     config: {
