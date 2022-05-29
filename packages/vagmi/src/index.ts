@@ -27,13 +27,11 @@ export {
 export {
   Client,
   Connector,
-  WagmiClient,
   alchemyRpcUrls,
   allChains,
   chain,
   chainId,
   createStorage,
-  createWagmiStorage,
   defaultChains,
   defaultL2Chains,
   erc20ABI,
@@ -47,5 +45,4 @@ export type {
   ConnectorEvents,
   Storage,
   Unit,
-  WagmiStorage,
 } from '@wagmi/core'
