@@ -30,7 +30,8 @@
   },
   "files": [
     "dist",
-    "connectors"
+    "connectors",
+    "chains"
   ],
   "sideEffects": false,
   "scripts": {
