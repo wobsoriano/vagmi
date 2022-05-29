@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   modules: ['@nuxthq/admin', '@docus/github'],
   extends: ['./node_modules/@docus/docs-theme'],
   github: {
-    repo: 'wobsoriano/vagmi'
+    repo: 'wobsoriano/vagmi',
   },
   vite: {
     define: {
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    preference: 'dark'
+    preference: 'dark',
   },
   tailwindcss: {
     config: {
@@ -32,4 +32,5 @@ export default defineNuxtConfig({
       },
     },
   },
+  theme: {}
 })
