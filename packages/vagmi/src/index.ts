@@ -5,7 +5,7 @@ export {
   useReadonlyClient as useClient,
 } from './plugin'
 export type {
-  ClientConfig,
+  CreateClientConfig,
 } from './plugin'
 
 export {

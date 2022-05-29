@@ -1,10 +1,11 @@
-import type { providers } from 'ethers'
 import type {
-  WagmiClient,
-  ClientConfig as WagmiClientConfig,
+  ClientConfig,
+  Provider,
+  Client as VanillaClient,
+  WebSocketProvider,
 } from '@wagmi/core'
 import {
-  createClient as createWagmiClient,
+  createClient as createVanillaClient,
 } from '@wagmi/core'
 import type {
   InjectionKey,
@@ -19,21 +20,16 @@ import {
 } from 'vue'
 import { QueryClient, VueQueryPlugin } from 'vue-query'
 
-export type DecoratedWagmiClient<
-  TProvider extends providers.BaseProvider = providers.BaseProvider,
-  TWebSocketProvider extends providers.WebSocketProvider = providers.WebSocketProvider,
-> = WagmiClient<TProvider, TWebSocketProvider> & { queryClient: QueryClient }
-
-export type ClientConfig<
-  TProvider extends providers.BaseProvider = providers.BaseProvider,
-  TWebSocketProvider extends providers.WebSocketProvider = providers.WebSocketProvider,
-> = WagmiClientConfig<TProvider, TWebSocketProvider> & {
+export type CreateClientConfig<
+  TProvider extends Provider = Provider,
+  TWebSocketProvider extends WebSocketProvider = WebSocketProvider,
+> = ClientConfig<TProvider, TWebSocketProvider> & {
   queryClient?: QueryClient
 }
 
 export function createClient<
-  TProvider extends providers.BaseProvider,
-  TWebSocketProvider extends providers.WebSocketProvider,
+  TProvider extends Provider,
+  TWebSocketProvider extends WebSocketProvider,
 >({
   queryClient = new QueryClient({
     defaultOptions: {
@@ -51,13 +47,18 @@ export function createClient<
     },
   }),
   ...config
-}: ClientConfig<TProvider, TWebSocketProvider> = {}) {
-  const client = createWagmiClient<TProvider, TWebSocketProvider>(config)
+}: CreateClientConfig<TProvider, TWebSocketProvider> = {}) {
+  const client = createVanillaClient<TProvider, TWebSocketProvider>(config)
   // TODO: Add persistor when it becomes available
   return Object.assign(client, { queryClient })
 }
 
-export const VagmiClientKey: InjectionKey<Ref<DecoratedWagmiClient>> = Symbol('vagmi')
+export type Client<
+  TProvider extends Provider = Provider,
+  TWebSocketProvider extends WebSocketProvider = WebSocketProvider,
+> = VanillaClient<TProvider, TWebSocketProvider> & { queryClient: QueryClient }
+
+export const VagmiClientKey: InjectionKey<Ref<Client>> = Symbol('vagmi')
 
 export function VagmiPlugin(client = createClient()): Plugin {
   return {
@@ -90,8 +91,14 @@ export function VagmiPlugin(client = createClient()): Plugin {
 
 export function useClient() {
   const vagmiClient = inject(VagmiClientKey)
-  if (!vagmiClient)
-    throw new Error('Must be used within VagmiPlugin')
+  if (!vagmiClient) {
+    throw new Error(
+      [
+        '`useClient` must be used within `WagmiConfig`.\n',
+        'Read more: https://wagmi.sh/docs/WagmiConfig',
+      ].join('\n'),
+    )
+  }
 
   return vagmiClient
 }
