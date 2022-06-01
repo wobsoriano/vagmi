@@ -29,7 +29,7 @@ app.use(VagmiPlugin(client))
 app.mount('#app')
 ```
 
-```vue
+```html
 <script setup>
 import { computed } from 'vue'
 import { useAccount, useConnect, useEnsName } from 'vagmi'
