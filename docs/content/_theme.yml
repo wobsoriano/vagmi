@@ -1,19 +1,18 @@
 title: vagmi
 
-url: 'https://docus.dev'
+layout: docs
+
+url: "https://docus.dev"
 
 description: Vue composables for Ethereum.
 
 socials:
   twitter: false
+  github: "wobsoriano/vagmi"
 
 debug: false
 
-github:
-  repository: wobsoriano/vagmi
-  branch: master
-  dir: docs
-  releases: false
+github: false
 
 cover:
   src: https://user-images.githubusercontent.com/904724/105075054-872fac80-5a89-11eb-8aab-46dd254ad986.png

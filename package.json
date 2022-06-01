@@ -5,7 +5,8 @@
     "dev": "nr --parallel --filter playground --filter vagmi dev",
     "dev:docs": "nr --filter docs dev",
     "lint": "eslint .",
-    "lint:fix": "nr lint --fix"
+    "lint:fix": "nr lint --fix",
+    "clean": "rm -rf pnpm-lock.yaml `find . -type d -name .nuxt` `find . -type d -name node_modules`"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.23.0",

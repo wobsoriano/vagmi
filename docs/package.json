@@ -10,8 +10,6 @@
   },
   "devDependencies": {
     "@docus/docs-theme": "npm:@docus/docs-theme-edge@latest",
-    "@docus/github": "npm:@docus/github-edge@latest",
-    "@nuxthq/admin": "npm:@nuxthq/admin-edge@latest",
     "nuxt": "^3.0.0-rc.3"
   }
 }
