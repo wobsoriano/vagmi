@@ -1,0 +1,5 @@
+{
+  "main": "../../dist/providers/jsonRpc.js",
+  "module": "../../dist/providers/jsonRpc.mjs",
+  "types": "../../dist/providers/jsonRpc.d.ts"
+}

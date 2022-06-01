@@ -1,0 +1,5 @@
+{
+  "main": "../../dist/providers/alchemy.js",
+  "module": "../../dist/providers/alchemy.mjs",
+  "types": "../../dist/providers/alchemy.d.ts"
+}
