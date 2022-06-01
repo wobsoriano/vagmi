@@ -1,7 +1,7 @@
 {
   "name": "vagmi",
   "version": "0.1.4",
-  "description": "TODO",
+  "description": "Vue composables for Ethereum",
   "keywords": [
     "vue",
     "hooks",
