@@ -65,14 +65,14 @@ importers:
       typescript: ^4.6.4
       vitest: ^0.10.2
       vue: ^3.2.33
-      vue-query: 2.0.0-alpha.3
+      vue-query: 2.0.0-alpha.4
     dependencies:
       '@coinbase/wallet-sdk': 3.2.0
       '@vueuse/core': 8.6.0_vue@3.2.36
       '@wagmi/core': 0.3.5_xef66b7fj4ubtncrawyhy2oeri
       '@walletconnect/ethereum-provider': 1.7.8
       klona: 2.0.5
-      vue-query: 2.0.0-alpha.3_vue@3.2.36
+      vue-query: 2.0.0-alpha.4_vue@3.2.36
     devDependencies:
       '@antfu/ni': 0.16.2
       '@types/node': 17.0.38
@@ -10293,8 +10293,8 @@ packages:
       plausible-tracker: 0.3.5
     dev: true
 
-  /vue-query/2.0.0-alpha.3_vue@3.2.36:
-    resolution: {integrity: sha512-SohnTAay5HkdfQWN8SWvQXwfYFImUCXaaYhJA3+wQekJQkkFSN52+xymtNXyx1v2ukijCgDeCrAJc3WJ35Yzjg==}
+  /vue-query/2.0.0-alpha.4_vue@3.2.36:
+    resolution: {integrity: sha512-tT0v2wq7MoaPx4wrKWH3g5GrGH156P6EahXe7YSJRC6yIpW793l6ZQ5HLkerIF9/2ZPMBhdPByCA2FNjL2wO8A==}
     peerDependencies:
       '@nuxtjs/composition-api': ^0.28.0
       '@vue/composition-api': ^1.1.2
