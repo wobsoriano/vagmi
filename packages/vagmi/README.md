@@ -32,21 +32,20 @@ app.mount('#app')
 ```html
 <script setup>
 import { computed } from 'vue'
-import { useAccount, useConnect, useEnsName } from 'vagmi'
+import { useAccount, useConnect, useDisconnect } from 'vagmi'
 import { InjectedConnector } from 'vagmi/connectors/injected'
 
-const { data: account } = useAccount()
-const { data: ensName } = useEnsName({
-  address: computed(() => account.value?.address),
-})
+const { data } = useAccount()
 const { connect } = useConnect({
   connector: new InjectedConnector(),
 })
+const { disconnect } = useDisconnect()
 </script>
 
 <template>
-  <div v-if="account">
-    Connected to {{ ensName ?? account.address }}
+  <div v-if="data">
+    Connected to {{ data.address }}
+    <button @click="disconnect">Disconnect</button>
   </div>
   <button v-else @click="connect">
     Connect Wallet
