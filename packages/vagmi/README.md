@@ -31,7 +31,6 @@ app.mount('#app')
 
 ```html
 <script setup>
-import { computed } from 'vue'
 import { useAccount, useConnect, useDisconnect } from 'vagmi'
 import { InjectedConnector } from 'vagmi/connectors/injected'
 
