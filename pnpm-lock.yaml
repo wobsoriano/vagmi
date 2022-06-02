@@ -54,6 +54,7 @@ importers:
       '@antfu/ni': ^0.16.2
       '@coinbase/wallet-sdk': ^3.1.0
       '@types/node': ^17.0.31
+      '@vue/test-utils': ^2.0.0
       '@vueuse/core': ^8.5.0
       '@wagmi/core': ^0.3.3
       '@walletconnect/ethereum-provider': ^1.7.8
@@ -61,9 +62,10 @@ importers:
       ethers: ^5.6.8
       jsdom: ^19.0.0
       klona: ^2.0.5
-      tsup: ^5.12.7
+      p-wait-for: ^4.1.0
+      tsup: ^6.0.1
       typescript: ^4.6.4
-      vitest: ^0.10.2
+      vitest: ^0.13.1
       vue: ^3.2.33
       vue-query: 2.0.0-alpha.4
     dependencies:
@@ -76,12 +78,14 @@ importers:
     devDependencies:
       '@antfu/ni': 0.16.2
       '@types/node': 17.0.38
+      '@vue/test-utils': 2.0.0_vue@3.2.36
       bumpp: 7.1.1
       ethers: 5.6.8
       jsdom: 19.0.0
-      tsup: 5.12.9_typescript@4.7.2
+      p-wait-for: 4.1.0
+      tsup: 6.0.1_typescript@4.7.2
       typescript: 4.7.2
-      vitest: 0.10.5_jsdom@19.0.0
+      vitest: 0.13.1_jsdom@19.0.0
       vue: 3.2.36
 
 packages:
@@ -1999,6 +2003,14 @@ packages:
 
   /@vue/shared/3.2.36:
     resolution: {integrity: sha512-JtB41wXl7Au3+Nl3gD16Cfpj7k/6aCroZ6BbOiCMFCMvrOpkg/qQUXTso2XowaNqBbnkuGHurLAqkLBxNGc1hQ==}
+
+  /@vue/test-utils/2.0.0_vue@3.2.36:
+    resolution: {integrity: sha512-zL5kygNq7hONrO1CzaUGprEAklAX+pH8J1MPMCU3Rd2xtSYkZ+PmKU3oEDRg8VAGdL5lNJHzDgrud5amFPtirw==}
+    peerDependencies:
+      vue: ^3.0.1
+    dependencies:
+      vue: 3.2.36
+    dev: true
 
   /@vueuse/core/8.6.0:
     resolution: {integrity: sha512-VirzExCm/N+QdrEWT7J4uSrvJ5hquKIAU9alQ37kUvIJk9XxCLxmfRnmekYc1kz2+6BnoyuKYXVmrMV351CB4w==}
@@ -7559,6 +7571,11 @@ packages:
       p-limit: 2.3.0
     dev: true
 
+  /p-timeout/5.1.0:
+    resolution: {integrity: sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==}
+    engines: {node: '>=12'}
+    dev: true
+
   /p-try/1.0.0:
     resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
     engines: {node: '>=4'}
@@ -7567,6 +7584,13 @@ packages:
   /p-try/2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
+
+  /p-wait-for/4.1.0:
+    resolution: {integrity: sha512-i8nE5q++9h8oaQHWltS1Tnnv4IoMDOlqN7C0KFG2OdbK0iFJIt6CROZ8wfBM+K4Pxqfnq4C4lkkpXqTEpB5DZw==}
+    engines: {node: '>=12'}
+    dependencies:
+      p-timeout: 5.1.0
+    dev: true
 
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -9592,8 +9616,9 @@ packages:
     engines: {node: '>=0.6.x'}
     dev: true
 
-  /tsup/5.12.9_typescript@4.7.2:
-    resolution: {integrity: sha512-dUpuouWZYe40lLufo64qEhDpIDsWhRbr2expv5dHEMjwqeKJS2aXA/FPqs1dxO4T6mBojo7rvo3jP9NNzaKyDg==}
+  /tsup/6.0.1_typescript@4.7.2:
+    resolution: {integrity: sha512-2Pl1YkEEvzfg4aYgwUILaHV0wwZQKO7mNHMQChyzdCNlQqf11eug7gWk86XCb3CvRofCXBX87x73BTGjyS3cOQ==}
+    engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
       '@swc/core': ^1
@@ -10148,8 +10173,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.10.5_jsdom@19.0.0:
-    resolution: {integrity: sha512-4qXdNbHwAd9YcsztJoVMWUQGcMATVlY9Xd95I3KQ2JJwDLTL97f/jgfGRotqptvNxdlmme5TBY0Gv+l6+JSYvA==}
+  /vitest/0.13.1_jsdom@19.0.0:
+    resolution: {integrity: sha512-CfSBf7YFw/i8HumSUQRtZKs0aV91DC9WU8nAgIJAlawKHaFuPHQohDwOTPIFgrxySiuFYUa0Yohf9gDFfBwjxA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
@@ -10170,6 +10195,7 @@ packages:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
       chai: 4.3.6
+      debug: 4.3.4
       jsdom: 19.0.0
       local-pkg: 0.4.1
       tinypool: 0.1.3
@@ -10179,6 +10205,7 @@ packages:
       - less
       - sass
       - stylus
+      - supports-color
     dev: true
 
   /vscode-jsonrpc/6.0.0:

@@ -1,8 +1,9 @@
 import type { GetAccountResult } from '@wagmi/core'
 import { getAccount, watchAccount } from '@wagmi/core'
-import { useQuery, useQueryClient } from 'vue-query'
+import { useQueryClient } from 'vue-query'
 import type { UseQueryOptions } from 'vue-query'
 import { tryOnScopeDispose } from '@vueuse/core'
+import { useQuery } from '../utils/useQuery'
 
 export type UseAccountConfig = Pick<
   UseQueryOptions<GetAccountResult, Error>,
