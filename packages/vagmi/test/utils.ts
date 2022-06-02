@@ -8,6 +8,7 @@ import { CreateClientConfig, createClient } from '../src'
 import { UseQueryReturnType } from '../src/composables/utils'
 import { isRef } from 'vue'
 import { nextTick } from 'vue'
+import { renderComposable } from '.'
 
 type Config = Partial<CreateClientConfig>
 
