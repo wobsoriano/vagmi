@@ -1,17 +1,16 @@
 import { connect } from '@wagmi/core'
-import { isRef } from 'vue'
-import { renderComposable, setupClient } from '../../../test'
+import { renderComposable, setupClient, unrefAllProperties, actConnect } from '../../../test'
 import { VagmiPlugin } from '../../plugin'
-import { useAccount } from './useAccount'
-import type { UseQueryReturnType } from '../utils/useQuery'
+import { useAccount, UseAccountConfig } from './useAccount'
+import { useConnect } from './useConnect'
+import { useDisconnect } from './useDisconnect'
 
-function unrefAllProperties<T>(result: UseQueryReturnType<T, Error>) {
-  const realValues = {}
-  Object.keys(result).forEach((key) => {
-    // @ts-expect-error: Internal
-    realValues[key] = isRef(result[key]) ? result[key].value : result[key]
-  })
-  return realValues as UseQueryReturnType<T, Error>
+function useAccountWithConnectAndDisconnect(config: UseAccountConfig = {}) {
+  return {
+    account: useAccount(config),
+    connect: useConnect(),
+    disconnect: useDisconnect(),
+  }
 }
 
 describe('useAccount', () => {
@@ -32,16 +31,33 @@ describe('useAccount', () => {
 
       const { internal, ...rest } = result
 
-      expect(unrefAllProperties(rest)).toMatchSnapshot()
+      expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
+        {
+          "data": {
+            "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "connector": "<MockConnector>",
+          },
+          "error": null,
+          "errorUpdateCount": 0,
+          "fetchStatus": "idle",
+          "isError": false,
+          "isFetched": true,
+          "isFetching": false,
+          "isLoading": false,
+          "isRefetching": false,
+          "isSuccess": true,
+          "refetch": [Function],
+          "status": "success",
+          "suspense": [Function],
+        }
+      `)
     })
 
     it('is not connected', async () => {
-      const client = setupClient()
-
       const { result, waitFor } = renderComposable(() => useAccount(), {
         global: {
           plugins: [
-            VagmiPlugin(client)
+            VagmiPlugin()
           ]
         }
       })
@@ -50,7 +66,44 @@ describe('useAccount', () => {
 
       const { internal, ...rest } = result
 
-      expect(unrefAllProperties(rest)).toMatchSnapshot()
+      expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
+        {
+          "data": null,
+          "error": null,
+          "errorUpdateCount": 0,
+          "fetchStatus": "idle",
+          "isError": false,
+          "isFetched": true,
+          "isFetching": false,
+          "isLoading": false,
+          "isRefetching": false,
+          "isSuccess": true,
+          "refetch": [Function],
+          "status": "success",
+          "suspense": [Function],
+        }
+      `)
     })
   })
+  
+  // describe('behavior', () => {
+  //   it('updates on connect and disconnect', async () => {
+  //     const utils = renderComposable(() => useAccountWithConnectAndDisconnect(), {
+  //       global: {
+  //         plugins: [
+  //           VagmiPlugin()
+  //         ]
+  //       }
+  //     })
+  //     const { result, waitFor } = utils
+  
+  //     await actConnect({ utils })
+  
+  //     await waitFor(() => result.account.isSuccess.value)
+  
+  //     const { internal, ...rest } = result.account
+  
+  //     expect(unrefAllProperties(rest)).toMatchSnapshot()
+  //   })
+  // })
 })

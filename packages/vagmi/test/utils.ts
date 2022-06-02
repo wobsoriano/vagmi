@@ -2,9 +2,13 @@ import { providers } from 'ethers'
 import { Wallet } from 'ethers/lib/ethers'
 
 import { MockConnector } from '@wagmi/core/connectors/mock'
-import { allChains, Chain, Connector, Provider, WebSocketProvider, chain as chain_ } from '@wagmi/core'
+import { allChains, Chain, Provider, WebSocketProvider, chain as chain_, Connector } from '@wagmi/core'
 
 import { CreateClientConfig, createClient } from '../src'
+import { UseQueryReturnType } from '../src/composables/utils'
+import { renderComposable } from './renderComposable'
+import { isRef } from 'vue'
+import { nextTick } from 'vue'
 
 type Config = Partial<CreateClientConfig>
 
@@ -13,7 +17,6 @@ class EthersProviderWrapper extends providers.StaticJsonRpcProvider {
     return `<Provider network={${this.network.chainId}} />`
   }
 }
-
 
 export function getNetwork(chain: Chain) {
   return {
@@ -156,4 +159,32 @@ export function setupClient(config: Config = {}) {
     provider: getProvider,
     ...config,
   })
+}
+
+export async function actConnect(config: {
+  connector?: Connector
+  utils: ReturnType<typeof renderComposable>
+}) {
+  const connector = config.connector
+  const getConnect = (utils: ReturnType<typeof renderComposable>) =>
+    (utils.result as any)?.connect || utils.result
+  const utils = config.utils
+
+  const connect = getConnect(utils)
+  connect.connect.value?.(connector ?? connect.connectors.value?.[0])
+
+  await nextTick()
+
+  const { waitFor } = utils
+    
+  await waitFor(() => getConnect(utils).isConnected.value)
+}
+
+export function unrefAllProperties<T>(result: Omit<UseQueryReturnType<T, Error>, 'internal'>) {
+  const realValues = {}
+  Object.keys(result).forEach((key) => {
+    // @ts-expect-error: Internal
+    realValues[key] = isRef(result[key]) ? result[key].value : result[key]
+  })
+  return realValues as UseQueryReturnType<T, Error>
 }

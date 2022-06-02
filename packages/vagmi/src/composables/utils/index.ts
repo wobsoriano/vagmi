@@ -4,3 +4,6 @@ export {
 export {
   useQuery,
 } from './useQuery'
+export type {
+  UseQueryReturnType
+} from './useQuery'

@@ -21,5 +21,7 @@ export {
 } from './renderComposable'
 
 export {
-  setupClient
+  setupClient,
+  actConnect,
+  unrefAllProperties
 } from './utils'

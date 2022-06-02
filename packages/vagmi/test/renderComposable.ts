@@ -1,10 +1,10 @@
 import { defineComponent, h, nextTick as vueNextTick } from "vue";
-import { mount } from "@vue/test-utils";
+import { mount, VueWrapper } from "@vue/test-utils";
 import waitFor from 'p-wait-for';
 
 export interface RenderComposableResult<T> {
   result: T;
-  waitFor: typeof waitFor,
+  waitFor: typeof waitFor;
   nextTick: typeof vueNextTick;
 }
 

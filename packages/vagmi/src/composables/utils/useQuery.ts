@@ -51,6 +51,7 @@ export function useQuery<
 >(
   options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>
 ): UseQueryReturnType<TData, TError>;
+
 export function useQuery<
   TQueryFnData = unknown,
   TError = unknown,
@@ -63,6 +64,7 @@ export function useQuery<
     "queryKey"
   >
 ): UseQueryReturnType<TData, TError>;
+
 export function useQuery<
   TQueryFnData = unknown,
   TError = unknown,
