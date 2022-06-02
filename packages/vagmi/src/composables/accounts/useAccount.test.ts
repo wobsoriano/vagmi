@@ -19,13 +19,7 @@ describe('useAccount', () => {
       const client = setupClient()
       await connect({ connector: client.connectors[0] })
 
-      const { result, waitFor } = renderComposable(() => useAccount(), {
-        global: {
-          plugins: [
-            VagmiPlugin(client)
-          ]
-        }
-      })
+      const { result, waitFor } = renderComposable(() => useAccount(), client)
 
       await waitFor(() => result.isSuccess.value)
 
@@ -54,13 +48,7 @@ describe('useAccount', () => {
     })
 
     it('is not connected', async () => {
-      const { result, waitFor } = renderComposable(() => useAccount(), {
-        global: {
-          plugins: [
-            VagmiPlugin()
-          ]
-        }
-      })
+      const { result, waitFor } = renderComposable(() => useAccount())
 
       await waitFor(() => result.isSuccess.value)
 

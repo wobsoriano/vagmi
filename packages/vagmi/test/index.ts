@@ -1,4 +1,9 @@
 import { QueryClient } from "vue-query";
+import { defineComponent, h, nextTick as vueNextTick } from "vue";
+import { mount } from "@vue/test-utils";
+import waitFor from 'p-wait-for';
+import { VagmiPlugin } from "../src";
+import { setupClient } from "./utils";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,9 +21,43 @@ export const queryClient = new QueryClient({
   },
 })
 
-export {
-  renderComposable
-} from './renderComposable'
+export interface RenderComposableResult<T> {
+  result: T;
+  waitFor: typeof waitFor;
+  nextTick: typeof vueNextTick;
+}
+
+export type MountOptions = Parameters<typeof mount>[1]
+
+export function renderComposable<T>(
+  composable: () => T,
+  client = setupClient({ queryClient })
+): RenderComposableResult<T> {
+  const Child = defineComponent({
+    setup() {
+      const result = composable();
+      const wrapper = () => result;
+      return { wrapper };
+    },
+    render: () => null
+  });
+
+  const wrapper = mount({
+    render: () => h(Child, { ref: 'child' }),
+  }, {
+    global: {
+      plugins: [
+        VagmiPlugin(client)
+      ]
+    }
+  });
+
+  return {
+    result: (wrapper.vm.$refs.child as any).wrapper(),
+    waitFor,
+    nextTick: wrapper.vm.$nextTick,
+  };
+}
 
 export {
   setupClient,
