@@ -6,7 +6,6 @@ import { allChains, Chain, Provider, WebSocketProvider, chain as chain_, Connect
 
 import { CreateClientConfig, createClient } from '../src'
 import { UseQueryReturnType } from '../src/composables/utils'
-import { renderComposable } from './renderComposable'
 import { isRef } from 'vue'
 import { nextTick } from 'vue'
 
