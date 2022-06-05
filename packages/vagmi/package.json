@@ -1,6 +1,6 @@
 {
   "name": "vagmi",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Vue composables for Ethereum",
   "keywords": [
     "vue",
@@ -25,13 +25,57 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./chains": {
+      "import": "./dist/chains.mjs",
+      "require": "./dist/chains.js"
+    },
+    "./connectors/coinbaseWallet": {
+      "import": "./dist/connectors/coinbaseWallet.mjs",
+      "require": "./dist/connectors/coinbaseWallet.js",
+      "types": "./dist/connectors/coinbaseWallet.d.ts"
+    },
+    "./connectors/injected": {
+      "import": "./dist/connectors/injected.mjs",
+      "require": "./dist/connectors/injected.js",
+      "types": "./dist/connectors/injected.d.ts"
+    },
+    "./connectors/metaMask": {
+      "import": "./dist/connectors/metaMask.mjs",
+      "require": "./dist/connectors/metaMask.js",
+      "types": "./dist/connectors/metaMask.d.ts"
+    },
+    "./connectors/walletConnect": {
+      "import": "./dist/connectors/walletConnect.mjs",
+      "require": "./dist/connectors/walletConnect.js",
+      "types": "./dist/connectors/walletConnect.d.ts"
+    },
+    "./providers/alchemy": {
+      "import": "./dist/providers/alchemy.mjs",
+      "require": "./dist/providers/alchemy.js",
+      "types": "./dist/providers/alchemy.d.ts"
+    },
+    "./providers/infura": {
+      "import": "./dist/providers/infura.mjs",
+      "require": "./dist/providers/infura.js",
+      "types": "./dist/providers/infura.d.ts"
+    },
+    "./providers/jsonRpc": {
+      "import": "./dist/providers/jsonRpc.mjs",
+      "require": "./dist/providers/jsonRpc.js",
+      "types": "./dist/providers/jsonRpc.d.ts"
+    },
+    "./providers/public": {
+      "import": "./dist/providers/public.mjs",
+      "require": "./dist/providers/public.js",
+      "types": "./dist/providers/public.d.ts"
+    }
   },
   "files": [
-    "dist",
-    "connectors",
-    "chains"
+    "dist"
   ],
   "sideEffects": false,
   "scripts": {
