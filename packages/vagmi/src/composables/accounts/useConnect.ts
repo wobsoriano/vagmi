@@ -69,11 +69,6 @@ export function useConnect({
   const { data, error, mutate, mutateAsync, reset, status, variables }
     = useMutation(options)
 
-  // const connect = computed(() => {
-  //   return (connector_?: ConnectArgs['connector']) =>
-  //     mutate(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
-  // })
-
   const connect = (connectorOrArgs?: Partial<ConnectArgs> | ConnectArgs['connector']) => {
     let config: Partial<ConnectArgs>
     if (connectorOrArgs instanceof Connector) {
@@ -93,10 +88,24 @@ export function useConnect({
     return mutate(<ConnectArgs>config)
   }
 
-  const connectAsync = computed(() => {
-    return (connector_?: ConnectArgs['connector']) =>
-      mutateAsync(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
-  })
+  const connectAsync = (connectorOrArgs?: Partial<ConnectArgs> | ConnectArgs['connector']) => {
+    let config: Partial<ConnectArgs>
+    if (connectorOrArgs instanceof Connector) {
+      const connector_ = connectorOrArgs
+      config = {
+        chainId: getMaybeRefValue(chainId),
+        connector: connector_ ?? getMaybeRefValue(connector),
+      }
+    }
+    else {
+      const args = connectorOrArgs
+      config = {
+        chainId: args?.chainId ?? getMaybeRefValue(chainId),
+        connector: args?.connector ?? getMaybeRefValue(connector),
+      }
+    }
+    return mutateAsync(<ConnectArgs>config)
+  }
 
   const status_ = computed(() => {
     let result:
@@ -123,7 +132,7 @@ export function useConnect({
   const result = computed(() => ({
     activeConnector: client.value.connector,
     connect,
-    connectAsync: connectAsync.value,
+    connectAsync,
     connectors: client.value.connectors,
     data: data.value,
     error: error.value,
