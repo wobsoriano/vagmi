@@ -10,7 +10,7 @@
   "dependencies": {
     "ethers": "^5.6.8",
     "vagmi": "workspace:*",
-    "vue": "^3.2.25"
+    "vue": "^3.2.36"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
