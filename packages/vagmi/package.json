@@ -75,7 +75,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "chains.d.ts",
+    "connectors"
   ],
   "sideEffects": false,
   "scripts": {

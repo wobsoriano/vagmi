@@ -1,5 +1,0 @@
-{
-  "main": "../../dist/connectors/injected.js",
-  "module": "../../dist/connectors/injected.mjs",
-  "types": "../../dist/connectors/injected.d.ts"
-}
