@@ -1,5 +1,0 @@
-{
-  "main": "../../dist/providers/public.js",
-  "module": "../../dist/providers/public.mjs",
-  "types": "../../dist/providers/public.d.ts"
-}

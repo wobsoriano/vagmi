@@ -77,7 +77,8 @@
   "files": [
     "dist",
     "chains.d.ts",
-    "connectors"
+    "connectors",
+    "providers"
   ],
   "sideEffects": false,
   "scripts": {

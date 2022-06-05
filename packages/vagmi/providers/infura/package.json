@@ -1,5 +1,0 @@
-{
-  "main": "../../dist/providers/infura.js",
-  "module": "../../dist/providers/infura.mjs",
-  "types": "../../dist/providers/infura.d.ts"
-}
