@@ -1,7 +1,8 @@
 import { connect } from '@wagmi/core'
-import { renderComposable, setupClient, unrefAllProperties, actConnect } from '../../../test'
+import { actConnect, renderComposable, setupClient, unrefAllProperties } from '../../../test'
 import { VagmiPlugin } from '../../plugin'
-import { useAccount, UseAccountConfig } from './useAccount'
+import type { UseAccountConfig } from './useAccount'
+import { useAccount } from './useAccount'
 import { useConnect } from './useConnect'
 import { useDisconnect } from './useDisconnect'
 
@@ -73,7 +74,7 @@ describe('useAccount', () => {
       `)
     })
   })
-  
+
   // describe('behavior', () => {
   //   it('updates on connect and disconnect', async () => {
   //     const utils = renderComposable(() => useAccountWithConnectAndDisconnect(), {
@@ -84,13 +85,13 @@ describe('useAccount', () => {
   //       }
   //     })
   //     const { result, waitFor } = utils
-  
+
   //     await actConnect({ utils })
-  
+
   //     await waitFor(() => result.account.isSuccess.value)
-  
+
   //     const { internal, ...rest } = result.account
-  
+
   //     expect(unrefAllProperties(rest)).toMatchSnapshot()
   //   })
   // })

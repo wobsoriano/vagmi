@@ -39,7 +39,10 @@ export function useAccount({
     // TODO: Fix reactivity and remove refetch
     queryClient.setQueryData(queryKey(), data?.address
       ? data
-      : null)
+      : {
+          address: null,
+          connector: null,
+        })
     // accountQuery.refetch()
   })
 

@@ -1,5 +1,5 @@
 import type { ConnectArgs, ConnectResult } from '@wagmi/core'
-import { connect } from '@wagmi/core'
+import { Connector, connect } from '@wagmi/core'
 import { computed, reactive } from 'vue'
 import { useMutation } from 'vue-query'
 import type { UseMutationOptions, UseMutationReturnType } from 'vue-query'
@@ -19,7 +19,10 @@ export type UseMutationResult<
 export type UseConnectArgs = Partial<ConnectArgs>
 
 type MutationOptions = UseMutationOptions<ConnectResult, Error, ConnectArgs, unknown>
+
 export interface UseConnectConfig {
+  /** Chain to connect */
+  chainId?: number
   /**
    * Function to invoke before connect and is passed same variables connect function would receive.
    * Value returned from this function will be passed to both onError and onSettled functions in event of a mutation failure.
@@ -38,13 +41,14 @@ export const mutationKey = (args: UseConnectArgs) => [
 ]
 
 const mutationFn = (args: UseConnectArgs) => {
-  const { connector } = args
+  const { connector, chainId } = args
   if (!connector)
     throw new Error('connector is required')
-  return connect({ connector })
+  return connect({ connector, chainId })
 }
 
 export function useConnect({
+  chainId,
   connector,
   onBeforeConnect,
   onConnect,
@@ -54,7 +58,7 @@ export function useConnect({
   const client = useClient()
 
   const options = reactive({
-    mutationKey: computed(() => mutationKey({ connector: getMaybeRefValue(connector) })),
+    mutationKey: computed(() => mutationKey({ connector: getMaybeRefValue(connector), chainId: getMaybeRefValue(chainId) })),
     mutationFn,
     onError,
     onMutate: onBeforeConnect,
@@ -65,10 +69,29 @@ export function useConnect({
   const { data, error, mutate, mutateAsync, reset, status, variables }
     = useMutation(options)
 
-  const connect = computed(() => {
-    return (connector_?: ConnectArgs['connector']) =>
-      mutate(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
-  })
+  // const connect = computed(() => {
+  //   return (connector_?: ConnectArgs['connector']) =>
+  //     mutate(<ConnectArgs>{ connector: connector_ ?? getMaybeRefValue(connector) })
+  // })
+
+  const connect = (connectorOrArgs?: Partial<ConnectArgs> | ConnectArgs['connector']) => {
+    let config: Partial<ConnectArgs>
+    if (connectorOrArgs instanceof Connector) {
+      const connector_ = connectorOrArgs
+      config = {
+        chainId: getMaybeRefValue(chainId),
+        connector: connector_ ?? getMaybeRefValue(connector),
+      }
+    }
+    else {
+      const args = connectorOrArgs
+      config = {
+        chainId: args?.chainId ?? getMaybeRefValue(chainId),
+        connector: args?.connector ?? getMaybeRefValue(connector),
+      }
+    }
+    return mutate(<ConnectArgs>config)
+  }
 
   const connectAsync = computed(() => {
     return (connector_?: ConnectArgs['connector']) =>
@@ -99,7 +122,7 @@ export function useConnect({
 
   const result = computed(() => ({
     activeConnector: client.value.connector,
-    connect: connect.value,
+    connect,
     connectAsync: connectAsync.value,
     connectors: client.value.connectors,
     data: data.value,

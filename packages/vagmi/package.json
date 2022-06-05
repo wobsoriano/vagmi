@@ -9,7 +9,8 @@
     "ethereum",
     "dapps",
     "wallet",
-    "web3"
+    "web3",
+    "wagmi"
   ],
   "homepage": "https://github.com/wobsoriano/vagmi#readme",
   "bugs": {
@@ -84,7 +85,6 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "lint": "eslint .",
     "prepublishOnly": "pnpm run build",
     "release": "bumpp --commit --push --tag && npm publish",
     "test": "vitest run",
@@ -97,7 +97,7 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.1.0",
     "@vueuse/core": "^8.5.0",
-    "@wagmi/core": "^0.3.3",
+    "@wagmi/core": "^0.3.7",
     "@walletconnect/ethereum-provider": "^1.7.8",
     "klona": "^2.0.5",
     "vue-query": "2.0.0-alpha.4"
