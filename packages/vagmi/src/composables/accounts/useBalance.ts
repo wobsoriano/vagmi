@@ -1,12 +1,11 @@
 import type { FetchBalanceArgs, FetchBalanceResult } from '@wagmi/core'
 import { fetchBalance } from '@wagmi/core'
 import { computed, reactive, watch as vWatch } from 'vue'
-import { useQuery } from 'vue-query'
+import { useChainId, useQuery } from '../utils'
 
 import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
 import { getMaybeRefValue } from '../../utils'
 import { useBlockNumber } from '../network-status'
-import { useChainId } from '../utils'
 
 export type UseBalanceArgs = Partial<FetchBalanceArgs> & {
   /** Subscribe to changes */
@@ -78,7 +77,7 @@ export function useBalance({
     if (!getMaybeRefValue(addressOrName))
       return
 
-    balanceQuery.refetch()
+    (balanceQuery as any).refetch()
   }, {
     immediate: true,
   })

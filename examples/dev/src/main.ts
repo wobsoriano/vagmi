@@ -38,6 +38,7 @@ const client = createClient({
   provider({ chainId }) {
     return new providers.InfuraProvider(isChainSupported(chainId) ? chainId : defaultChain.id, infuraId)
   },
+  // @ts-expect-error: Internal
   webSocketProvider({ chainId }) {
     return new providers.InfuraProvider(
       isChainSupported(chainId) ? chainId : defaultChain.id,

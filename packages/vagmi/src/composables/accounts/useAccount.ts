@@ -40,7 +40,7 @@ export function useAccount({
     queryClient.setQueryData(queryKey(), data?.address
       ? data
       : null)
-    accountQuery.refetch()
+    // accountQuery.refetch()
   })
 
   tryOnScopeDispose(() => {
