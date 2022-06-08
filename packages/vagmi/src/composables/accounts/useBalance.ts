@@ -1,6 +1,6 @@
 import type { FetchBalanceArgs, FetchBalanceResult } from '@wagmi/core';
 import { fetchBalance } from '@wagmi/core';
-import { computed, reactive, watch as vWatch } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import { useChainId, useQuery } from '../utils';
 
 import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
@@ -41,7 +41,7 @@ export function useBalance({
   staleTime,
   suspense,
   token,
-  watch,
+  watch: watch_,
   onError,
   onSettled,
   onSuccess,
@@ -65,9 +65,9 @@ export function useBalance({
   });
   const balanceQuery = useQuery(options);
 
-  const { data: blockNumber } = useBlockNumber({ watch });
+  const { data: blockNumber } = useBlockNumber({ watch: watch_ });
 
-  vWatch(blockNumber, () => {
+  watch(blockNumber, () => {
     if (!getMaybeRefValue(enabled))
       return;
     if (!getMaybeRefValue(watch))

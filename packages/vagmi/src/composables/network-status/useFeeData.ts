@@ -1,7 +1,7 @@
 import type { FetchFeeDataArgs, FetchFeeDataResult } from '@wagmi/core';
 import { fetchFeeData } from '@wagmi/core';
 import { computed, reactive, watch as vWatch } from 'vue';
-import { useQuery } from 'vue-query';
+import { useQuery } from '../utils/useQuery';
 
 import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
 import { getMaybeRefValue } from '../../utils';

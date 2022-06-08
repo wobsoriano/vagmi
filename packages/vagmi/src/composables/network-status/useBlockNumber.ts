@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from 'vue-query';
+import { useQueryClient } from 'vue-query';
 import type {
   FetchBlockNumberArgs,
   FetchBlockNumberResult,
@@ -8,6 +8,7 @@ import {
 } from '@wagmi/core';
 
 import { computed, reactive, watchEffect } from 'vue';
+import { useQuery } from '../utils/useQuery';
 import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
 import { useProvider, useWebSocketProvider } from '../providers';
 import { useChainId } from '../utils';

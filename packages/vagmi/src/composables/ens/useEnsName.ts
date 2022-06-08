@@ -1,7 +1,7 @@
 import type { FetchEnsNameArgs, FetchEnsNameResult } from '@wagmi/core';
 import { fetchEnsName } from '@wagmi/core';
 import { computed, reactive } from 'vue';
-import { useQuery } from 'vue-query';
+import { useQuery } from '../utils/useQuery';
 
 import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
 import { getMaybeRefValue } from '../../utils';
