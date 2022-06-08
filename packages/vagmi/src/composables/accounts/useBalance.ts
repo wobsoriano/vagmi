@@ -77,7 +77,7 @@ export function useBalance({
     if (!getMaybeRefValue(addressOrName))
       return
 
-    (balanceQuery as any).refetch()
+    balanceQuery.refetch()
   }, {
     immediate: true,
   })

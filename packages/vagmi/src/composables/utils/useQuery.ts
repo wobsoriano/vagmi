@@ -14,7 +14,6 @@ export type UseQueryReturnType<TData, TError> = Pick<
   | 'isLoading'
   | 'isRefetching'
   | 'isSuccess'
-  | 'refetch'
 > & {
   isIdle: boolean
   status: 'idle' | 'loading' | 'success' | 'error'
@@ -32,6 +31,11 @@ export type UseQueryReturnType<TData, TError> = Pick<
     | 'isStale'
     | 'remove'
   >
+} & Omit<
+  _UseQueryReturnType<TData, TError>,
+  'refetch'
+> & {
+  refetch: QueryObserverResult<TData, TError>['refetch']
 }
 
 export type UseQueryOptions<
