@@ -96,10 +96,10 @@ export function useNetwork({
     pendingChainId: computed(() => variables.value?.chainId),
     reset,
     status,
-    switchNetwork: connector.value?.switchChain ? switchNetwork_ : undefined,
-    switchNetworkAsync: connector.value?.switchChain
+    switchNetwork: computed(() => connector.value?.switchChain ? switchNetwork_ : undefined),
+    switchNetworkAsync: computed(() => connector.value?.switchChain
       ? switchNetworkAsync_
-      : undefined,
+      : undefined),
     variables,
   } as const
 }
