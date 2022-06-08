@@ -1,7 +1,7 @@
-import type { UnwrapRef } from 'vue'
-import type { QueryFunction, QueryKey, QueryObserverResult, UseQueryReturnType as _UseQueryReturnType } from 'vue-query'
-import { useQuery as _useQuery } from 'vue-query'
-import type { VueQueryObserverOptions, WithQueryClientKey } from 'vue-query/lib/vuejs/types'
+import type { UnwrapRef } from 'vue';
+import type { QueryFunction, QueryKey, QueryObserverResult, UseQueryReturnType as _UseQueryReturnType } from 'vue-query';
+import { useQuery as _useQuery } from 'vue-query';
+import type { VueQueryObserverOptions, WithQueryClientKey } from 'vue-query/lib/vuejs/types';
 
 export type UseQueryReturnType<TData, TError> = Pick<
   _UseQueryReturnType<TData, TError>,
@@ -36,7 +36,7 @@ export type UseQueryReturnType<TData, TError> = Pick<
   'refetch'
 > & {
   refetch: QueryObserverResult<TData, TError>['refetch']
-}
+};
 
 export type UseQueryOptions<
   TQueryFnData = unknown,
@@ -45,7 +45,7 @@ export type UseQueryOptions<
   TQueryKey extends QueryKey = QueryKey,
 > = WithQueryClientKey<
   VueQueryObserverOptions<TQueryFnData, TError, TData, TQueryFnData, TQueryKey>
->
+>;
 
 export function useQuery<
   TQueryFnData = unknown,
@@ -54,7 +54,7 @@ export function useQuery<
   TQueryKey extends QueryKey = QueryKey,
 >(
   options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>
-): UseQueryReturnType<TData, TError>
+): UseQueryReturnType<TData, TError>;
 
 export function useQuery<
   TQueryFnData = unknown,
@@ -67,7 +67,7 @@ export function useQuery<
     UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
     'queryKey'
   >
-): UseQueryReturnType<TData, TError>
+): UseQueryReturnType<TData, TError>;
 
 export function useQuery<
   TQueryFnData = unknown,
@@ -81,7 +81,7 @@ export function useQuery<
     UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
     'queryKey' | 'queryFn'
   >
-): UseQueryReturnType<TData, TError>
+): UseQueryReturnType<TData, TError>;
 
 export function useQuery<
   TQueryFnData,
@@ -89,7 +89,7 @@ export function useQuery<
   TData = TQueryFnData,
 >(...args: any[]): UseQueryReturnType<TData, TError> {
   // @ts-expect-error: Internal
-  const result = _useQuery(...args)
+  const result = _useQuery(...args);
 
   const {
     dataUpdatedAt,
@@ -104,7 +104,7 @@ export function useQuery<
     isStale,
     remove,
     ...rest
-  } = result
+  } = result;
 
   const internal = {
     dataUpdatedAt,
@@ -118,10 +118,10 @@ export function useQuery<
     isRefetchError,
     isStale,
     remove,
-  }
+  };
 
   return {
     ...rest,
     internal,
-  } as any
+  } as any;
 }

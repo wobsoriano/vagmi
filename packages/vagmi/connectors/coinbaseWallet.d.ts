@@ -1,1 +1,1 @@
-export * from '../dist/connectors/coinbaseWallet'
+export * from '../dist/connectors/coinbaseWallet';

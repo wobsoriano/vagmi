@@ -1,23 +1,23 @@
-import type { GetAccountResult } from '@wagmi/core'
-import { getAccount, watchAccount } from '@wagmi/core'
-import { useQueryClient } from 'vue-query'
-import type { UseQueryOptions } from 'vue-query'
-import { tryOnScopeDispose } from '@vueuse/core'
-import { useQuery } from '../utils/useQuery'
+import type { GetAccountResult } from '@wagmi/core';
+import { getAccount, watchAccount } from '@wagmi/core';
+import { useQueryClient } from 'vue-query';
+import type { UseQueryOptions } from 'vue-query';
+import { tryOnScopeDispose } from '@vueuse/core';
+import { useQuery } from '../utils/useQuery';
 
 export type UseAccountConfig = Pick<
   UseQueryOptions<GetAccountResult, Error>,
   'suspense' | 'onError' | 'onSettled' | 'onSuccess'
->
+>;
 
-export const queryKey = () => [{ entity: 'account' }] as const
+export const queryKey = () => [{ entity: 'account' }] as const;
 
 const queryFn = () => {
-  const result = getAccount()
+  const result = getAccount();
   if (result.address)
-    return result
-  return null
-}
+    return result;
+  return null;
+};
 
 export function useAccount({
   suspense,
@@ -25,7 +25,7 @@ export function useAccount({
   onSettled,
   onSuccess,
 }: UseAccountConfig = {}) {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const accountQuery = useQuery(queryKey(), queryFn, {
     staleTime: 0,
@@ -33,7 +33,7 @@ export function useAccount({
     onError,
     onSettled,
     onSuccess,
-  })
+  });
 
   const unwatch = watchAccount((data) => {
     // TODO: Fix reactivity and remove refetch
@@ -42,13 +42,13 @@ export function useAccount({
       : {
           address: null,
           connector: null,
-        })
-    accountQuery.refetch()
-  })
+        });
+    accountQuery.refetch();
+  });
 
   tryOnScopeDispose(() => {
-    unwatch()
-  })
+    unwatch();
+  });
 
-  return accountQuery
+  return accountQuery;
 }

@@ -1,18 +1,18 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsup';
 
 const connectors = [
   'coinbaseWallet',
   'metaMask',
   'walletConnect',
   'injected',
-]
+];
 
 const providers = [
   'alchemy',
   'infura',
   'jsonRpc',
   'public',
-]
+];
 
 export default defineConfig({
   entry: [
@@ -25,4 +25,4 @@ export default defineConfig({
   clean: false,
   format: ['cjs', 'esm'],
   splitting: false,
-})
+});

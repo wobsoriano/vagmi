@@ -1,1 +1,1 @@
-export * from '../dist/connectors/walletConnect'
+export * from '../dist/connectors/walletConnect';

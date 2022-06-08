@@ -1,1 +1,1 @@
-export * from '../dist/connectors/injected'
+export * from '../dist/connectors/injected';

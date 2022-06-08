@@ -1,1 +1,1 @@
-export * from './dist/chains'
+export * from './dist/chains';

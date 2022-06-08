@@ -12,4 +12,4 @@ export {
   polygonMumbai,
   rinkeby,
   ropsten,
-} from '@wagmi/core/chains'
+} from '@wagmi/core/chains';

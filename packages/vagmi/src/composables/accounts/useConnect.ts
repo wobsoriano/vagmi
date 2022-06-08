@@ -1,24 +1,24 @@
-import type { ConnectArgs, ConnectResult } from '@wagmi/core'
-import { Connector, connect } from '@wagmi/core'
-import { computed, reactive } from 'vue'
-import { useMutation } from 'vue-query'
-import type { UseMutationOptions, UseMutationReturnType } from 'vue-query'
-import { toRefs } from '@vueuse/core'
+import type { ConnectArgs, ConnectResult } from '@wagmi/core';
+import { Connector, connect } from '@wagmi/core';
+import { computed, reactive } from 'vue';
+import { useMutation } from 'vue-query';
+import type { UseMutationOptions, UseMutationReturnType } from 'vue-query';
+import { toRefs } from '@vueuse/core';
 
-import { useClient } from '../../plugin'
-import type { SetMaybeRef } from '../../types'
-import { getMaybeRefValue } from '../../utils'
+import { useClient } from '../../plugin';
+import type { SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
 
 export type UseMutationResult<
   TData = unknown,
   TError = unknown,
   TVariables = unknown,
   TContext = unknown,
-> = UseMutationReturnType<TData, TError, TVariables, TContext>
+> = UseMutationReturnType<TData, TError, TVariables, TContext>;
 
-export type UseConnectArgs = Partial<ConnectArgs>
+export type UseConnectArgs = Partial<ConnectArgs>;
 
-type MutationOptions = UseMutationOptions<ConnectResult, Error, ConnectArgs, unknown>
+type MutationOptions = UseMutationOptions<ConnectResult, Error, ConnectArgs, unknown>;
 
 export interface UseConnectConfig {
   /** Chain to connect */
@@ -38,14 +38,14 @@ export interface UseConnectConfig {
 
 export const mutationKey = (args: UseConnectArgs) => [
   { entity: 'connect', ...args },
-]
+];
 
 const mutationFn = (args: UseConnectArgs) => {
-  const { connector, chainId } = args
+  const { connector, chainId } = args;
   if (!connector)
-    throw new Error('connector is required')
-  return connect({ connector, chainId })
-}
+    throw new Error('connector is required');
+  return connect({ connector, chainId });
+};
 
 export function useConnect({
   chainId,
@@ -55,7 +55,7 @@ export function useConnect({
   onError,
   onSettled,
 }: SetMaybeRef<UseConnectArgs & UseConnectConfig> = {}) {
-  const client = useClient()
+  const client = useClient();
 
   const options = reactive({
     mutationKey: computed(() => mutationKey({ connector: getMaybeRefValue(connector), chainId: getMaybeRefValue(chainId) })),
@@ -64,48 +64,48 @@ export function useConnect({
     onMutate: onBeforeConnect,
     onSettled,
     onSuccess: onConnect,
-  })
+  });
 
   const { data, error, mutate, mutateAsync, reset, status, variables }
-    = useMutation(options)
+    = useMutation(options);
 
   const connect = (connectorOrArgs?: Partial<ConnectArgs> | ConnectArgs['connector']) => {
-    let config: Partial<ConnectArgs>
+    let config: Partial<ConnectArgs>;
     if (connectorOrArgs instanceof Connector) {
-      const connector_ = connectorOrArgs
+      const connector_ = connectorOrArgs;
       config = {
         chainId: getMaybeRefValue(chainId),
         connector: connector_ ?? getMaybeRefValue(connector),
-      }
+      };
     }
     else {
-      const args = connectorOrArgs
+      const args = connectorOrArgs;
       config = {
         chainId: args?.chainId ?? getMaybeRefValue(chainId),
         connector: args?.connector ?? getMaybeRefValue(connector),
-      }
+      };
     }
-    return mutate(<ConnectArgs>config)
-  }
+    return mutate(<ConnectArgs>config);
+  };
 
   const connectAsync = (connectorOrArgs?: Partial<ConnectArgs> | ConnectArgs['connector']) => {
-    let config: Partial<ConnectArgs>
+    let config: Partial<ConnectArgs>;
     if (connectorOrArgs instanceof Connector) {
-      const connector_ = connectorOrArgs
+      const connector_ = connectorOrArgs;
       config = {
         chainId: getMaybeRefValue(chainId),
         connector: connector_ ?? getMaybeRefValue(connector),
-      }
+      };
     }
     else {
-      const args = connectorOrArgs
+      const args = connectorOrArgs;
       config = {
         chainId: args?.chainId ?? getMaybeRefValue(chainId),
         connector: args?.connector ?? getMaybeRefValue(connector),
-      }
+      };
     }
-    return mutateAsync(<ConnectArgs>config)
-  }
+    return mutateAsync(<ConnectArgs>config);
+  };
 
   const status_ = computed(() => {
     let result:
@@ -113,21 +113,21 @@ export function useConnect({
     | 'connected'
     | 'connecting'
     | 'disconnected'
-    | 'reconnecting'
+    | 'reconnecting';
 
     if (client.value.status === 'reconnecting')
-      result = 'reconnecting'
+      result = 'reconnecting';
     else if (status.value === 'loading' || client.value.status === 'connecting')
-      result = 'connecting'
+      result = 'connecting';
     else if (client.value.connector)
-      result = 'connected'
+      result = 'connected';
     else if (!client.value.connector || status.value === 'success')
-      result = 'disconnected'
+      result = 'disconnected';
       // @ts-expect-error: TODO: Fix type
-    else result = status.value
+    else result = status.value;
 
-    return result
-  })
+    return result;
+  });
 
   const result = computed(() => ({
     activeConnector: client.value.connector,
@@ -146,7 +146,7 @@ export function useConnect({
     pendingConnector: variables.value?.connector,
     reset: reset.value,
     status: status_.value,
-  }))
+  }));
 
-  return toRefs(result)
+  return toRefs(result);
 }

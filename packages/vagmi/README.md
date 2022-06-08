@@ -19,14 +19,14 @@ npm install vagmi ethers
 Connect a wallet in under 60 seconds.
 
 ```ts
-import { VagmiPlugin, createClient } from 'vagmi'
-import App from './App.vue'
+import { VagmiPlugin, createClient } from 'vagmi';
+import App from './App.vue';
 
-const client = createClient()
+const client = createClient();
 
-const app = createApp(App)
-app.use(VagmiPlugin(client))
-app.mount('#app')
+const app = createApp(App);
+app.use(VagmiPlugin(client));
+app.mount('#app');
 ```
 
 ```html

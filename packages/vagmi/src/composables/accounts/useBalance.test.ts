@@ -1,15 +1,15 @@
-import { renderComposable, unrefAllProperties } from '../../../test'
-import { useBalance } from './useBalance'
+import { renderComposable, unrefAllProperties } from '../../../test';
+import { useBalance } from './useBalance';
 
 describe('useBalance', () => {
   it('it mounts', async () => {
-    const { result, waitFor } = renderComposable(() => useBalance({ addressOrName: 'awkweb.eth' }))
+    const { result, waitFor } = renderComposable(() => useBalance({ addressOrName: 'awkweb.eth' }));
 
     await waitFor(() => result.isSuccess.value, {
       timeout: 5_000,
-    })
+    });
 
-    const { internal, ...rest } = result
+    const { internal, ...rest } = result;
 
     expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
     {
@@ -35,6 +35,6 @@ describe('useBalance', () => {
       "refetch": [Function],
       "status": "success",
     }
-  `)
-  })
-})
+  `);
+  });
+});

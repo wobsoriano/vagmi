@@ -1,32 +1,32 @@
-import type { FetchFeeDataArgs, FetchFeeDataResult } from '@wagmi/core'
-import { fetchFeeData } from '@wagmi/core'
-import { computed, reactive, watch as vWatch } from 'vue'
-import { useQuery } from 'vue-query'
+import type { FetchFeeDataArgs, FetchFeeDataResult } from '@wagmi/core';
+import { fetchFeeData } from '@wagmi/core';
+import { computed, reactive, watch as vWatch } from 'vue';
+import { useQuery } from 'vue-query';
 
-import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
-import { getMaybeRefValue } from '../../utils'
-import { useBlockNumber } from '../network-status'
-import { useChainId } from '../utils'
+import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
+import { useBlockNumber } from '../network-status';
+import { useChainId } from '../utils';
 
 type UseFeeDataArgs = Partial<FetchFeeDataArgs> & {
   /** Subscribe to changes */
   watch?: boolean
-}
+};
 
-export type UseFeedDataConfig = QueryConfig<FetchFeeDataResult, Error>
+export type UseFeedDataConfig = QueryConfig<FetchFeeDataResult, Error>;
 
 export const queryKey = ({
   chainId,
   formatUnits,
 }: Partial<FetchFeeDataArgs> & {
   chainId?: number
-}) => [{ entity: 'feeData', chainId, formatUnits }] as const
+}) => [{ entity: 'feeData', chainId, formatUnits }] as const;
 
 const queryFn = ({
   queryKey: [{ chainId, formatUnits }],
 }: QueryFunctionArgs<typeof queryKey>) => {
-  return fetchFeeData({ chainId, formatUnits })
-}
+  return fetchFeeData({ chainId, formatUnits });
+};
 
 export function useFeeData({
   cacheTime,
@@ -40,7 +40,7 @@ export function useFeeData({
   onSettled,
   onSuccess,
 }: SetMaybeRef<UseFeeDataArgs & UseFeedDataConfig> = {}) {
-  const chainId = useChainId({ chainId: chainId_ })
+  const chainId = useChainId({ chainId: chainId_ });
 
   const options = reactive({
     queryKey: computed(() => queryKey({ chainId: getMaybeRefValue(chainId), formatUnits: getMaybeRefValue(formatUnits) })),
@@ -52,24 +52,24 @@ export function useFeeData({
     onError,
     onSettled,
     onSuccess,
-  })
+  });
 
-  const feeDataQuery = useQuery(options)
+  const feeDataQuery = useQuery(options);
 
-  const { data: blockNumber } = useBlockNumber({ watch })
+  const { data: blockNumber } = useBlockNumber({ watch });
 
   vWatch(blockNumber, () => {
     if (!getMaybeRefValue(enabled))
-      return
+      return;
     if (!getMaybeRefValue(watch))
-      return
+      return;
     if (!getMaybeRefValue(blockNumber))
-      return
+      return;
 
-    feeDataQuery.refetch()
+    feeDataQuery.refetch();
   }, {
     immediate: true,
-  })
+  });
 
-  return feeDataQuery
+  return feeDataQuery;
 }

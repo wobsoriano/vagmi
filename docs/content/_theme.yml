@@ -2,13 +2,13 @@ title: vagmi
 
 layout: docs
 
-url: "https://vagmi.vercel.app"
+url: 'https://vagmi.vercel.app'
 
 description: Vue composables for Ethereum.
 
 socials:
   twitter: false
-  github: "wobsoriano/vagmi"
+  github: wobsoriano/vagmi
 
 debug: false
 

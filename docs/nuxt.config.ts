@@ -1,5 +1,5 @@
-import { defineNuxtConfig } from 'nuxt'
-import colors from 'tailwindcss/colors.js'
+import { defineNuxtConfig } from 'nuxt';
+import colors from 'tailwindcss/colors.js';
 
 export default defineNuxtConfig({
   extends: ['./node_modules/@docus/docs-theme'],
@@ -28,5 +28,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  theme: {}
-})
+  theme: {},
+});

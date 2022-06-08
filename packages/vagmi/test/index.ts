@@ -1,9 +1,10 @@
-import { QueryClient } from "vue-query";
-import { defineComponent, h, nextTick as vueNextTick } from "vue";
-import { mount } from "@vue/test-utils";
+import { QueryClient } from 'vue-query';
+import type { nextTick as vueNextTick } from 'vue';
+import { defineComponent, h } from 'vue';
+import { mount } from '@vue/test-utils';
 import waitFor from 'p-wait-for';
-import { VagmiPlugin } from "../src";
-import { setupClient } from "./utils";
+import { VagmiPlugin } from '../src';
+import { setupClient } from './utils';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,19 +20,19 @@ export const queryClient = new QueryClient({
     log: console.log,
     warn: console.warn,
   },
-})
+});
 
 export interface RenderComposableResult<T> {
-  result: T;
-  waitFor: typeof waitFor;
-  nextTick: typeof vueNextTick;
+  result: T
+  waitFor: typeof waitFor
+  nextTick: typeof vueNextTick
 }
 
-export type MountOptions = Parameters<typeof mount>[1]
+export type MountOptions = Parameters<typeof mount>[1];
 
 export function renderComposable<T>(
   composable: () => T,
-  client = setupClient({ queryClient })
+  client = setupClient({ queryClient }),
 ): RenderComposableResult<T> {
   const Child = defineComponent({
     setup() {
@@ -39,7 +40,7 @@ export function renderComposable<T>(
       const wrapper = () => result;
       return { wrapper };
     },
-    render: () => null
+    render: () => null,
   });
 
   const wrapper = mount({
@@ -47,9 +48,9 @@ export function renderComposable<T>(
   }, {
     global: {
       plugins: [
-        VagmiPlugin(client)
-      ]
-    }
+        VagmiPlugin(client),
+      ],
+    },
   });
 
   return {
@@ -62,5 +63,5 @@ export function renderComposable<T>(
 export {
   setupClient,
   actConnect,
-  unrefAllProperties
-} from './utils'
+  unrefAllProperties,
+} from './utils';

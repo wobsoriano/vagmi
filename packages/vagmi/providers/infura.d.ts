@@ -1,1 +1,1 @@
-export * from '../dist/providers/infura'
+export * from '../dist/providers/infura';

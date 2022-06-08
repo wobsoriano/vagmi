@@ -1,2 +1,2 @@
-export { useProvider } from './useProvider'
-export { useWebSocketProvider } from './useWebSocketProvider'
+export { useProvider } from './useProvider';
+export { useWebSocketProvider } from './useWebSocketProvider';

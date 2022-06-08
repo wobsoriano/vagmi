@@ -1,30 +1,30 @@
-import { connect } from '@wagmi/core'
-import { actConnect, renderComposable, setupClient, unrefAllProperties } from '../../../test'
-import { VagmiPlugin } from '../../plugin'
-import type { UseAccountConfig } from './useAccount'
-import { useAccount } from './useAccount'
-import { useConnect } from './useConnect'
-import { useDisconnect } from './useDisconnect'
+import { connect } from '@wagmi/core';
+import { actConnect, renderComposable, setupClient, unrefAllProperties } from '../../../test';
+import { VagmiPlugin } from '../../plugin';
+import type { UseAccountConfig } from './useAccount';
+import { useAccount } from './useAccount';
+import { useConnect } from './useConnect';
+import { useDisconnect } from './useDisconnect';
 
 function useAccountWithConnectAndDisconnect(config: UseAccountConfig = {}) {
   return {
     account: useAccount(config),
     connect: useConnect(),
     disconnect: useDisconnect(),
-  }
+  };
 }
 
 describe('useAccount', () => {
   describe('mounts', () => {
     it('is connected', async () => {
-      const client = setupClient()
-      await connect({ connector: client.connectors[0] })
+      const client = setupClient();
+      await connect({ connector: client.connectors[0] });
 
-      const { result, waitFor } = renderComposable(() => useAccount(), client)
+      const { result, waitFor } = renderComposable(() => useAccount(), client);
 
-      await waitFor(() => result.isSuccess.value)
+      await waitFor(() => result.isSuccess.value);
 
-      const { internal, ...rest } = result
+      const { internal, ...rest } = result;
 
       expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
         {
@@ -45,15 +45,15 @@ describe('useAccount', () => {
           "status": "success",
           "suspense": [Function],
         }
-      `)
-    })
+      `);
+    });
 
     it('is not connected', async () => {
-      const { result, waitFor } = renderComposable(() => useAccount())
+      const { result, waitFor } = renderComposable(() => useAccount());
 
-      await waitFor(() => result.isSuccess.value)
+      await waitFor(() => result.isSuccess.value);
 
-      const { internal, ...rest } = result
+      const { internal, ...rest } = result;
 
       expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
         {
@@ -71,9 +71,9 @@ describe('useAccount', () => {
           "status": "success",
           "suspense": [Function],
         }
-      `)
-    })
-  })
+      `);
+    });
+  });
 
   // describe('behavior', () => {
   //   it('updates on connect and disconnect', async () => {
@@ -95,4 +95,4 @@ describe('useAccount', () => {
   //     expect(unrefAllProperties(rest)).toMatchSnapshot()
   //   })
   // })
-})
+});

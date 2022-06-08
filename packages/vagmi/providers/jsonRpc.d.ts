@@ -1,1 +1,1 @@
-export * from '../dist/providers/jsonRpc'
+export * from '../dist/providers/jsonRpc';

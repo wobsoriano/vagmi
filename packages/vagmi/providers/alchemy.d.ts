@@ -1,1 +1,1 @@
-export * from '../dist/providers/alchemy'
+export * from '../dist/providers/alchemy';

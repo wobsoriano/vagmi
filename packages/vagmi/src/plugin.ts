@@ -3,29 +3,29 @@ import type {
   Provider,
   Client as VanillaClient,
   WebSocketProvider,
-} from '@wagmi/core'
+} from '@wagmi/core';
 import {
   createClient as createVanillaClient,
-} from '@wagmi/core'
+} from '@wagmi/core';
 import type {
   InjectionKey,
   Plugin,
   Ref,
-} from 'vue'
+} from 'vue';
 import {
   inject,
   readonly,
   shallowRef,
   triggerRef,
-} from 'vue'
-import { QueryClient, VueQueryPlugin } from 'vue-query'
+} from 'vue';
+import { QueryClient, VueQueryPlugin } from 'vue-query';
 
 export type CreateClientConfig<
   TProvider extends Provider = Provider,
   TWebSocketProvider extends WebSocketProvider = WebSocketProvider,
 > = ClientConfig<TProvider, TWebSocketProvider> & {
   queryClient?: QueryClient
-}
+};
 
 export function createClient<
   TProvider extends Provider,
@@ -48,17 +48,17 @@ export function createClient<
   }),
   ...config
 }: CreateClientConfig<TProvider, TWebSocketProvider> = {}) {
-  const client = createVanillaClient<TProvider, TWebSocketProvider>(config)
+  const client = createVanillaClient<TProvider, TWebSocketProvider>(config);
   // TODO: Add persistor when it becomes available
-  return Object.assign(client, { queryClient })
+  return Object.assign(client, { queryClient });
 }
 
 export type Client<
   TProvider extends Provider = Provider,
   TWebSocketProvider extends WebSocketProvider = WebSocketProvider,
-> = VanillaClient<TProvider, TWebSocketProvider> & { queryClient: QueryClient }
+> = VanillaClient<TProvider, TWebSocketProvider> & { queryClient: QueryClient };
 
-export const VagmiClientKey: InjectionKey<Ref<Client>> = Symbol('vagmi')
+export const VagmiClientKey: InjectionKey<Ref<Client>> = Symbol('vagmi');
 
 export function VagmiPlugin(client = createClient()): Plugin {
   return {
@@ -66,44 +66,44 @@ export function VagmiPlugin(client = createClient()): Plugin {
       // Setup vue-query
       app.use(VueQueryPlugin, {
         queryClient: client.queryClient,
-      })
+      });
 
-      const reactiveClient = shallowRef(client)
+      const reactiveClient = shallowRef(client);
 
       // Setup @wagmi/core
       if (client.config.autoConnect)
-        client.autoConnect()
+        client.autoConnect();
 
       const unsubscribe = client.subscribe(() => {
-        triggerRef(reactiveClient)
-      })
+        triggerRef(reactiveClient);
+      });
 
-      const originalUnmount = app.unmount
+      const originalUnmount = app.unmount;
       app.unmount = function vagmiUnmount() {
-        unsubscribe()
-        originalUnmount()
-      }
+        unsubscribe();
+        originalUnmount();
+      };
 
-      app.provide(VagmiClientKey, reactiveClient)
+      app.provide(VagmiClientKey, reactiveClient);
     },
-  }
+  };
 }
 
 export function useClient() {
-  const vagmiClient = inject(VagmiClientKey)
+  const vagmiClient = inject(VagmiClientKey);
   if (!vagmiClient) {
     throw new Error(
       [
         '`useClient` must be used within `WagmiConfig`.\n',
         'Read more: https://wagmi.sh/docs/WagmiConfig',
       ].join('\n'),
-    )
+    );
   }
 
-  return vagmiClient
+  return vagmiClient;
 }
 
 export function useReadonlyClient(): Readonly<ReturnType<typeof useClient>> {
-  const client = useClient()
-  return readonly(client) as any
+  const client = useClient();
+  return readonly(client) as any;
 }

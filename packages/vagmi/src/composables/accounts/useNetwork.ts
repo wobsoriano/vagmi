@@ -1,38 +1,38 @@
-import { tryOnScopeDispose } from '@vueuse/core'
+import { tryOnScopeDispose } from '@vueuse/core';
 import type {
   SwitchNetworkArgs,
   SwitchNetworkResult,
-} from '@wagmi/core'
+} from '@wagmi/core';
 import {
   getNetwork,
   switchNetwork,
   watchNetwork,
-} from '@wagmi/core'
-import { computed, reactive, ref } from 'vue'
-import { useMutation } from 'vue-query'
+} from '@wagmi/core';
+import { computed, reactive, ref } from 'vue';
+import { useMutation } from 'vue-query';
 
-import { useClient } from '../../plugin'
-import type { MutationConfig, SetMaybeRef } from '../../types'
-import { getMaybeRefValue } from '../../utils'
+import { useClient } from '../../plugin';
+import type { MutationConfig, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
 
-export type UseNetworkArgs = Partial<SwitchNetworkArgs>
+export type UseNetworkArgs = Partial<SwitchNetworkArgs>;
 
 export type UseNetworkConfig = MutationConfig<
   SwitchNetworkResult,
   Error,
   SwitchNetworkArgs
->
+>;
 
 export const mutationKey = (args: UseNetworkArgs) => [
   { entity: 'switchNetwork', ...args },
-]
+];
 
 const mutationFn = (args: UseNetworkArgs) => {
-  const { chainId } = args
+  const { chainId } = args;
   if (!chainId)
-    throw new Error('chainId is required')
-  return switchNetwork({ chainId })
-}
+    throw new Error('chainId is required');
+  return switchNetwork({ chainId });
+};
 
 export function useNetwork({
   chainId,
@@ -41,9 +41,9 @@ export function useNetwork({
   onSettled,
   onSuccess,
 }: SetMaybeRef<UseNetworkArgs & UseNetworkConfig> = {}) {
-  const network = ref(getNetwork())
+  const network = ref(getNetwork());
 
-  const client = useClient()
+  const client = useClient();
 
   const options = reactive({
     mutationKey: computed(() => mutationKey({ chainId: getMaybeRefValue(chainId) })),
@@ -52,7 +52,7 @@ export function useNetwork({
     onMutate,
     onSettled,
     onSuccess,
-  })
+  });
 
   const {
     data,
@@ -66,23 +66,23 @@ export function useNetwork({
     reset,
     status,
     variables,
-  } = useMutation(options)
+  } = useMutation(options);
 
   const unwatch = watchNetwork((data) => {
-    network.value = data
-  })
+    network.value = data;
+  });
 
   tryOnScopeDispose(() => {
-    unwatch()
-  })
+    unwatch();
+  });
 
   const switchNetwork_ = (chainId_?: SwitchNetworkArgs['chainId']) =>
-    mutate(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
+    mutate(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) });
 
   const switchNetworkAsync_ = (chainId_?: SwitchNetworkArgs['chainId']) =>
-    mutateAsync(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) })
+    mutateAsync(<SwitchNetworkArgs>{ chainId: chainId_ ?? getMaybeRefValue(chainId) });
 
-  const connector = computed(() => client.value.connector)
+  const connector = computed(() => client.value.connector);
 
   return {
     activeChain: computed(() => network.value.chain),
@@ -101,5 +101,5 @@ export function useNetwork({
       ? switchNetworkAsync_
       : undefined),
     variables,
-  } as const
+  } as const;
 }

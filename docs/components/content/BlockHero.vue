@@ -2,17 +2,17 @@
 defineProps({
   cta: {
     type: Array,
-    default: () => ['Get started', '/get-started']
+    default: () => ['Get started', '/get-started'],
   },
   secondary: {
     type: Array,
-    default: () => ['Open on GitHub', 'https://github.com']
+    default: () => ['Open on GitHub', 'https://github.com'],
   },
   snippet: {
     type: [String],
-    default: () => ''
-  }
-})
+    default: () => '',
+  },
+});
 </script>
 
 <template>
@@ -26,13 +26,13 @@ defineProps({
         <Markdown :use="$slots.features" unwrap="p" />
 
         <div class="flex flex-col items-center mt-6 space-y-4 sm:mb-4 sm:flex-row sm:space-y-0 sm:space-x-4 lg:space-x-6">
-          <ButtonLink v-if="cta" class="mx-auto md:mx-0" bold size="large" :href="(cta[1] as any)">
+          <ButtonLink v-if="cta" class="mx-auto md:mx-0" bold size="large" :href="cta[1] as any">
             {{ cta[0] }}
           </ButtonLink>
 
           <a
             v-if="secondary"
-            :href="(secondary[1] as any)"
+            :href="secondary[1] as any"
             class="py-px mt-px font-medium border-transparent text-secondary-active border-b-1 hover:border-primary-500 dark:hover:border-primary-400"
           >
             {{ secondary[0] }}

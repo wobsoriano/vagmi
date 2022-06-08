@@ -4,20 +4,20 @@ export {
   useDisconnect,
   useNetwork,
   useBalance,
-} from './accounts'
+} from './accounts';
 
-export { useProvider, useWebSocketProvider } from './providers'
+export { useProvider, useWebSocketProvider } from './providers';
 
-export { useChainId } from './utils'
+export { useChainId } from './utils';
 
 export {
   useFeeData,
   useBlockNumber,
-} from './network-status'
+} from './network-status';
 
 export {
   useEnsName,
   useEnsAddress,
   useEnsResolver,
   useEnsAvatar,
-} from './ens'
+} from './ens';

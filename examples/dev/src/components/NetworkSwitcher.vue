@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNetwork } from 'vagmi'
+import { useNetwork } from 'vagmi';
 
 const {
   activeChain,
@@ -8,7 +8,7 @@ const {
   isLoading,
   pendingChainId,
   switchNetwork,
-} = useNetwork()
+} = useNetwork();
 </script>
 
 <template>

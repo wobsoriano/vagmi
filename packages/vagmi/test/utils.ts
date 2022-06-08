@@ -1,20 +1,21 @@
-import { providers } from 'ethers'
-import { Wallet } from 'ethers/lib/ethers'
+import { providers } from 'ethers';
+import { Wallet } from 'ethers/lib/ethers';
 
-import { MockConnector } from '@wagmi/core/connectors/mock'
-import { allChains, Chain, Provider, WebSocketProvider, chain as chain_, Connector } from '@wagmi/core'
+import { MockConnector } from '@wagmi/core/connectors/mock';
+import type { Chain, Connector, Provider, WebSocketProvider } from '@wagmi/core';
+import { allChains, chain as chain_ } from '@wagmi/core';
 
-import { CreateClientConfig, createClient } from '../src'
-import { UseQueryReturnType } from '../src/composables/utils'
-import { isRef } from 'vue'
-import { nextTick } from 'vue'
-import { renderComposable } from '.'
+import { isRef, nextTick } from 'vue';
+import type { CreateClientConfig } from '../src';
+import { createClient } from '../src';
+import type { UseQueryReturnType } from '../src/composables/utils';
+import type { renderComposable } from '.';
 
-type Config = Partial<CreateClientConfig>
+type Config = Partial<CreateClientConfig>;
 
 class EthersProviderWrapper extends providers.StaticJsonRpcProvider {
   toJSON() {
-    return `<Provider network={${this.network.chainId}} />`
+    return `<Provider network={${this.network.chainId}} />`;
   }
 }
 
@@ -23,16 +24,16 @@ export function getNetwork(chain: Chain) {
     chainId: chain.id,
     ensAddress: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
     name: chain.name,
-  }
+  };
 }
 
 export function getProvider({ chainId }: { chainId?: number } = {}) {
-  const chain = allChains.find((x) => x.id === chainId) ?? chain_.hardhat
-  const network = getNetwork(chain)
-  const url = chain_.hardhat.rpcUrls.default.toString()
-  const provider = new EthersProviderWrapper(url, network)
-  provider.pollingInterval = 1_000
-  return provider
+  const chain = allChains.find(x => x.id === chainId) ?? chain_.hardhat;
+  const network = getNetwork(chain);
+  const url = chain_.hardhat.rpcUrls.default.toString();
+  const provider = new EthersProviderWrapper(url, network);
+  provider.pollingInterval = 1_000;
+  return provider;
 }
 
 export const accounts = [
@@ -136,15 +137,15 @@ export const accounts = [
       '0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e',
     balance: '10000000000000000000000',
   },
-]
+];
 
 export function getSigners() {
-  const provider = getProvider()
+  const provider = getProvider();
   const signers = accounts.map((x) => {
-    const wallet = new Wallet(x.privateKey)
-    return provider.getSigner(wallet.address)
-  })
-  return signers
+    const wallet = new Wallet(x.privateKey);
+    return provider.getSigner(wallet.address);
+  });
+  return signers;
 }
 
 export function setupClient(config: Config = {}) {
@@ -158,33 +159,33 @@ export function setupClient(config: Config = {}) {
     ],
     provider: getProvider,
     ...config,
-  })
+  });
 }
 
 export async function actConnect(config: {
   connector?: Connector
   utils: ReturnType<typeof renderComposable>
 }) {
-  const connector = config.connector
+  const connector = config.connector;
   const getConnect = (utils: ReturnType<typeof renderComposable>) =>
-    (utils.result as any)?.connect || utils.result
-  const utils = config.utils
+    (utils.result as any)?.connect || utils.result;
+  const utils = config.utils;
 
-  const connect = getConnect(utils)
-  connect.connect.value?.(connector ?? connect.connectors.value?.[0])
+  const connect = getConnect(utils);
+  connect.connect.value?.(connector ?? connect.connectors.value?.[0]);
 
-  await nextTick()
+  await nextTick();
 
-  const { waitFor } = utils
-    
-  await waitFor(() => getConnect(utils).isConnected.value)
+  const { waitFor } = utils;
+
+  await waitFor(() => getConnect(utils).isConnected.value);
 }
 
 export function unrefAllProperties<T>(result: Omit<UseQueryReturnType<T, Error>, 'internal'>) {
-  const realValues = {}
+  const realValues = {};
   Object.keys(result).forEach((key) => {
     // @ts-expect-error: Internal
-    realValues[key] = isRef(result[key]) ? result[key].value : result[key]
-  })
-  return realValues as UseQueryReturnType<T, Error>
+    realValues[key] = isRef(result[key]) ? result[key].value : result[key];
+  });
+  return realValues as UseQueryReturnType<T, Error>;
 }

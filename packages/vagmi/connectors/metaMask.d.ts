@@ -1,1 +1,1 @@
-export * from '../dist/connectors/metaMask'
+export * from '../dist/connectors/metaMask';

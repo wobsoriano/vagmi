@@ -1,3 +1,3 @@
 export {
   default as getMaybeRefValue,
-} from './get-maybe-ref-value'
+} from './get-maybe-ref-value';

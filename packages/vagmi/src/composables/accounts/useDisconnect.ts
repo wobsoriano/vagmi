@@ -1,7 +1,7 @@
-import { disconnect } from '@wagmi/core'
-import { useMutation, useQueryClient } from 'vue-query'
+import { disconnect } from '@wagmi/core';
+import { useMutation, useQueryClient } from 'vue-query';
 
-import { queryKey as accountQueryKey } from './useAccount'
+import { queryKey as accountQueryKey } from './useAccount';
 
 export interface UseDisconnectConfig {
   /** Function to invoke when an error is thrown while connecting. */
@@ -17,9 +17,9 @@ export interface UseDisconnectConfig {
   onSuccess?: (context: unknown) => void | Promise<unknown>
 }
 
-export const mutationKey = [{ entity: 'disconnect' }]
+export const mutationKey = [{ entity: 'disconnect' }];
 
-const mutationFn = () => disconnect()
+const mutationFn = () => disconnect();
 
 export function useDisconnect({
   onError,
@@ -27,7 +27,7 @@ export function useDisconnect({
   onSettled,
   onSuccess,
 }: UseDisconnectConfig = {}) {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const {
     error,
     isError,
@@ -42,7 +42,7 @@ export function useDisconnect({
     ...(onError
       ? {
           onError(error, _variables, context) {
-            onError(error, context)
+            onError(error, context);
           },
         }
       : {}),
@@ -50,17 +50,17 @@ export function useDisconnect({
     ...(onSettled
       ? {
           onSettled(_data, error, _variables, context) {
-            onSettled(error, context)
+            onSettled(error, context);
           },
         }
       : {}),
     onSuccess(_data, _variables, context) {
       // Clear account cache
-      queryClient.removeQueries(accountQueryKey())
+      queryClient.removeQueries(accountQueryKey());
       // Pass on arguments
-      onSuccess?.(context)
+      onSuccess?.(context);
     },
-  })
+  });
 
   return {
     disconnect,
@@ -72,5 +72,5 @@ export function useDisconnect({
     isSuccess,
     reset,
     status,
-  } as const
+  } as const;
 }

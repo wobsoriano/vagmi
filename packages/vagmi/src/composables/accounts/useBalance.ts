@@ -1,18 +1,18 @@
-import type { FetchBalanceArgs, FetchBalanceResult } from '@wagmi/core'
-import { fetchBalance } from '@wagmi/core'
-import { computed, reactive, watch as vWatch } from 'vue'
-import { useChainId, useQuery } from '../utils'
+import type { FetchBalanceArgs, FetchBalanceResult } from '@wagmi/core';
+import { fetchBalance } from '@wagmi/core';
+import { computed, reactive, watch as vWatch } from 'vue';
+import { useChainId, useQuery } from '../utils';
 
-import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
-import { getMaybeRefValue } from '../../utils'
-import { useBlockNumber } from '../network-status'
+import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
+import { useBlockNumber } from '../network-status';
 
 export type UseBalanceArgs = Partial<FetchBalanceArgs> & {
   /** Subscribe to changes */
   watch?: boolean
-}
+};
 
-export type UseBalanceConfig = QueryConfig<FetchBalanceResult, Error>
+export type UseBalanceConfig = QueryConfig<FetchBalanceResult, Error>;
 
 export const queryKey = ({
   addressOrName,
@@ -22,15 +22,15 @@ export const queryKey = ({
 }: Partial<FetchBalanceArgs> & {
   chainId?: number
 }) =>
-  [{ entity: 'balance', addressOrName, chainId, formatUnits, token }] as const
+  [{ entity: 'balance', addressOrName, chainId, formatUnits, token }] as const;
 
 const queryFn = ({
   queryKey: [{ addressOrName, chainId, formatUnits, token }],
 }: QueryFunctionArgs<typeof queryKey>) => {
   if (!addressOrName)
-    throw new Error('address is required')
-  return fetchBalance({ addressOrName, chainId, formatUnits, token })
-}
+    throw new Error('address is required');
+  return fetchBalance({ addressOrName, chainId, formatUnits, token });
+};
 
 export function useBalance({
   addressOrName,
@@ -46,7 +46,7 @@ export function useBalance({
   onSettled,
   onSuccess,
 }: SetMaybeRef<UseBalanceArgs & UseBalanceConfig> = {}) {
-  const chainId = useChainId({ chainId: chainId_ })
+  const chainId = useChainId({ chainId: chainId_ });
   const options = reactive({
     queryKey: computed(() => queryKey({
       addressOrName: getMaybeRefValue(addressOrName),
@@ -62,25 +62,25 @@ export function useBalance({
     onError,
     onSettled,
     onSuccess,
-  })
-  const balanceQuery = useQuery(options)
+  });
+  const balanceQuery = useQuery(options);
 
-  const { data: blockNumber } = useBlockNumber({ watch })
+  const { data: blockNumber } = useBlockNumber({ watch });
 
   vWatch(blockNumber, () => {
     if (!getMaybeRefValue(enabled))
-      return
+      return;
     if (!getMaybeRefValue(watch))
-      return
+      return;
     if (!getMaybeRefValue(blockNumber))
-      return
+      return;
     if (!getMaybeRefValue(addressOrName))
-      return
+      return;
 
-    balanceQuery.refetch()
+    balanceQuery.refetch();
   }, {
     immediate: true,
-  })
+  });
 
-  return balanceQuery
+  return balanceQuery;
 }

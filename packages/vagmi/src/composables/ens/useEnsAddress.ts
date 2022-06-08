@@ -1,20 +1,20 @@
 import type {
   FetchEnsAddressArgs,
   FetchEnsAddressResult,
-} from '@wagmi/core'
+} from '@wagmi/core';
 import {
   fetchEnsAddress,
-} from '@wagmi/core'
-import { computed, reactive } from 'vue'
-import { useQuery } from 'vue-query'
+} from '@wagmi/core';
+import { computed, reactive } from 'vue';
+import { useQuery } from 'vue-query';
 
-import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types'
-import { getMaybeRefValue } from '../../utils'
-import { useChainId } from '../utils'
+import type { QueryConfig, QueryFunctionArgs, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
+import { useChainId } from '../utils';
 
-export type UseEnsAddressArgs = Partial<FetchEnsAddressArgs>
+export type UseEnsAddressArgs = Partial<FetchEnsAddressArgs>;
 
-export type UseEnsAddressConfig = QueryConfig<FetchEnsAddressResult, Error>
+export type UseEnsAddressConfig = QueryConfig<FetchEnsAddressResult, Error>;
 
 export const queryKey = ({
   chainId,
@@ -22,15 +22,15 @@ export const queryKey = ({
 }: {
   chainId?: number
   name?: string
-}) => [{ entity: 'ensAddress', chainId, name }] as const
+}) => [{ entity: 'ensAddress', chainId, name }] as const;
 
 const queryFn = ({
   queryKey: [{ chainId, name }],
 }: QueryFunctionArgs<typeof queryKey>) => {
   if (!name)
-    throw new Error('name is required')
-  return fetchEnsAddress({ chainId, name })
-}
+    throw new Error('name is required');
+  return fetchEnsAddress({ chainId, name });
+};
 
 export function useEnsAddress({
   cacheTime,
@@ -43,21 +43,21 @@ export function useEnsAddress({
   onSettled,
   onSuccess,
 }: SetMaybeRef<UseEnsAddressArgs & UseEnsAddressConfig> = {}) {
-  const chainId = useChainId({ chainId: chainId_ })
+  const chainId = useChainId({ chainId: chainId_ });
 
   const options = reactive({
     queryKey: computed(() => queryKey({ chainId: getMaybeRefValue(chainId), name: getMaybeRefValue(name) })),
     queryFn,
     cacheTime,
     enabled: computed(() => {
-      return Boolean(getMaybeRefValue(enabled) && getMaybeRefValue(name) && getMaybeRefValue(chainId))
+      return Boolean(getMaybeRefValue(enabled) && getMaybeRefValue(name) && getMaybeRefValue(chainId));
     }),
     staleTime,
     suspense,
     onError,
     onSettled,
     onSuccess,
-  })
+  });
 
-  return useQuery(options)
+  return useQuery(options);
 }

@@ -18,6 +18,12 @@
     "pnpm": "^7.1.5"
   },
   "eslintConfig": {
-    "extends": "@antfu"
+    "extends": "@antfu",
+    "rules": {
+      "semi": [2, "always"],
+      "@typescript-eslint/semi": [2, "always"],
+      "curly": "off",
+      "@typescript-eslint/brace-style": "off"
+    }
   }
 }

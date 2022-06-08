@@ -1,4 +1,4 @@
-export { useBlockNumber } from './useBlockNumber'
+export { useBlockNumber } from './useBlockNumber';
 export {
   useFeeData,
-} from './useFeeData'
+} from './useFeeData';

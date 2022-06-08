@@ -3,10 +3,10 @@ export {
   VagmiPlugin,
   VagmiPlugin as Plugin,
   useReadonlyClient as useClient,
-} from './plugin'
+} from './plugin';
 export type {
   CreateClientConfig,
-} from './plugin'
+} from './plugin';
 
 export {
   useAccount,
@@ -22,7 +22,7 @@ export {
   useEnsAvatar,
   useBlockNumber,
   useFeeData,
-} from './composables'
+} from './composables';
 
 export {
   Client,
@@ -38,11 +38,11 @@ export {
   erc721ABI,
   etherscanBlockExplorers,
   infuraRpcUrls,
-} from '@wagmi/core'
+} from '@wagmi/core';
 export type {
   Chain,
   ConnectorData,
   ConnectorEvents,
   Storage,
   Unit,
-} from '@wagmi/core'
+} from '@wagmi/core';

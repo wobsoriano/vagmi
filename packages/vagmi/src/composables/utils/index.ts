@@ -1,9 +1,9 @@
 export {
   useChainId,
-} from './useChainId'
+} from './useChainId';
 export {
   useQuery,
-} from './useQuery'
+} from './useQuery';
 export type {
-  UseQueryReturnType
-} from './useQuery'
+  UseQueryReturnType,
+} from './useQuery';
