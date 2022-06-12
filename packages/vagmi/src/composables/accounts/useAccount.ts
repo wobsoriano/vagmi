@@ -20,7 +20,6 @@ const queryFn = () => {
 };
 
 export function useAccount({
-  suspense,
   onError,
   onSettled,
   onSuccess,
@@ -29,7 +28,6 @@ export function useAccount({
 
   const accountQuery = useQuery(queryKey(), queryFn, {
     staleTime: 0,
-    suspense,
     onError,
     onSettled,
     onSuccess,

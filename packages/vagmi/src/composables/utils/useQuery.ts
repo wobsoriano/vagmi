@@ -14,6 +14,7 @@ export type UseQueryReturnType<TData, TError> = Pick<
   | 'isLoading'
   | 'isRefetching'
   | 'isSuccess'
+  | 'suspense'
 > & {
   isIdle: boolean
   status: 'idle' | 'loading' | 'success' | 'error'
