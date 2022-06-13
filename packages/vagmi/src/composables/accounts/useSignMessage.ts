@@ -1,25 +1,27 @@
-import { SignMessageArgs, SignMessageResult, signMessage } from '@wagmi/core'
-import { useMutation } from 'vue-query'
+import type { SignMessageArgs, SignMessageResult } from '@wagmi/core';
+import { signMessage } from '@wagmi/core';
+import { useMutation } from 'vue-query';
 
-import { MutationConfig } from '../../types'
+import type { MutationConfig } from '../../types';
 
-export type UseSignMessageArgs = Partial<SignMessageArgs>
+export type UseSignMessageArgs = Partial<SignMessageArgs>;
 
 export type UseSignMessageConfig = MutationConfig<
   SignMessageResult,
   Error,
   SignMessageArgs
->
+>;
 
 export const mutationKey = (args: UseSignMessageArgs) => [
   { entity: 'signMessage', ...args },
-]
+];
 
 const mutationFn = (args: UseSignMessageArgs) => {
-  const { message } = args
-  if (!message) throw new Error('message is required')
-  return signMessage({ message })
-}
+  const { message } = args;
+  if (!message)
+    throw new Error('message is required');
+  return signMessage({ message });
+};
 
 export function useSignMessage({
   message,
@@ -45,10 +47,10 @@ export function useSignMessage({
     onMutate,
     onSettled,
     onSuccess,
-  })
+  });
 
-  const signMessage = (args?: SignMessageArgs) => mutate(args || <SignMessageArgs>{ message })
-  const signMessageAsync = (args?: SignMessageArgs) => mutateAsync(args || <SignMessageArgs>{ message })
+  const signMessage = (args?: SignMessageArgs) => mutate(args || <SignMessageArgs>{ message });
+  const signMessageAsync = (args?: SignMessageArgs) => mutateAsync(args || <SignMessageArgs>{ message });
 
   return {
     data,
@@ -62,5 +64,5 @@ export function useSignMessage({
     signMessageAsync,
     status,
     variables,
-  }
+  };
 }
