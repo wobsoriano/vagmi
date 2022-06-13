@@ -1,27 +1,18 @@
 title: vagmi
-
-layout: docs
-
-url: 'https://vagmi.vercel.app'
-
 description: Vue composables for Ethereum.
-
+layout: docs
+url: "https://vagmi.vercel.app"
 socials:
   twitter: false
   github: wobsoriano/vagmi
-
 debug: false
-
 github: false
-
 cover:
   src: https://raw.githubusercontent.com/wobsoriano/vagmi/master/docs/public/preview.png
   alt: A screenshot of the vagmi module.
-
 header:
   title: false
   logo: true
-
 footer:
   credits:
     icon: IconDocus
