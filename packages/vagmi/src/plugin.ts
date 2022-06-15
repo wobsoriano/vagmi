@@ -17,6 +17,7 @@ import {
   readonly,
   shallowRef,
   triggerRef,
+  markRaw,
 } from 'vue';
 import { QueryClient, VueQueryPlugin } from 'vue-query';
 
@@ -75,7 +76,7 @@ export function VagmiPlugin(client = createClient()): Plugin {
         client.autoConnect();
 
       const unsubscribe = client.subscribe(() => {
-        triggerRef(reactiveClient);
+        triggerRef(markRaw(reactiveClient));
       });
 
       const originalUnmount = app.unmount;
@@ -84,7 +85,7 @@ export function VagmiPlugin(client = createClient()): Plugin {
         originalUnmount();
       };
 
-      app.provide(VagmiClientKey, reactiveClient);
+      app.provide(VagmiClientKey, markRaw(reactiveClient));
     },
   };
 }
