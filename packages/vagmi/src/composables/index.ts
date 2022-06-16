@@ -4,6 +4,9 @@ export {
   useDisconnect,
   useNetwork,
   useBalance,
+  useSigner,
+  useSignMessage,
+  useSignTypedData
 } from './accounts';
 
 export { useProvider, useWebSocketProvider } from './providers';
