@@ -2,6 +2,10 @@ import { defineNuxtConfig } from 'nuxt';
 import colors from 'tailwindcss/colors.js';
 
 export default defineNuxtConfig({
+  components: {
+    global: true,
+    dirs: ['~/components']
+  },
   extends: ['./node_modules/@docus/docs-theme'],
   github: {
     repo: 'wobsoriano/vagmi',
