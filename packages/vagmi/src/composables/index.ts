@@ -24,3 +24,7 @@ export {
   useEnsResolver,
   useEnsAvatar,
 } from './ens';
+
+export {
+  useWaitForTransaction,
+} from './transactions';

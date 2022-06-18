@@ -1,0 +1,1 @@
+export { useWaitForTransaction } from './useWaitForTransaction'
