@@ -22,6 +22,9 @@ export {
   useEnsAvatar,
   useBlockNumber,
   useFeeData,
+  useSigner,
+  useSignMessage,
+  useSignTypedData
 } from './composables';
 
 export {

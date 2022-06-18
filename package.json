@@ -3,10 +3,12 @@
   "packageManager": "pnpm@7.2.1",
   "scripts": {
     "dev": "nr --parallel --filter playground --filter vagmi dev",
-    "dev:docs": "nr --filter docs dev",
+    "dev:docs": "nr update && nr --filter docs dev",
+    "dev:build": "nr update && nr --filter docs build",
     "lint": "eslint .",
     "lint:fix": "nr lint --fix",
-    "clean": "rm -rf pnpm-lock.yaml `find . -type d -name .nuxt` `find . -type d -name node_modules`"
+    "clean": "rm -rf pnpm-lock.yaml `find . -type d -name .nuxt` `find . -type d -name node_modules`",
+    "update": "esno scripts/update.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.23.0",
@@ -14,14 +16,23 @@
     "@ethersproject/abstract-provider": "^5.6.0",
     "@ethersproject/abstract-signer": "^5.6.1",
     "@ethersproject/providers": "^5.6.6",
+    "@types/md5": "^2.3.2",
     "eslint": "^8.14.0",
-    "pnpm": "^7.2.1"
+    "md5": "^2.3.0",
+    "pnpm": "^7.2.1",
+    "simple-git": "^3.7.1"
   },
   "eslintConfig": {
     "extends": "@antfu",
     "rules": {
-      "semi": [2, "always"],
-      "@typescript-eslint/semi": [2, "always"],
+      "semi": [
+        2,
+        "always"
+      ],
+      "@typescript-eslint/semi": [
+        2,
+        "always"
+      ],
       "curly": "off",
       "@typescript-eslint/brace-style": "off"
     }
