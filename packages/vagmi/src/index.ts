@@ -24,7 +24,8 @@ export {
   useFeeData,
   useSigner,
   useSignMessage,
-  useSignTypedData
+  useSignTypedData,
+  useWaitForTransaction,
 } from './composables';
 
 export {
@@ -49,3 +50,10 @@ export type {
   Storage,
   Unit,
 } from '@wagmi/core';
+
+export type {
+  QueryFunctionArgs,
+  SetMaybeRef,
+  QueryConfig,
+  MutationConfig,
+} from './types';
