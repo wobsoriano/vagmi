@@ -46,3 +46,8 @@ export type {
   Storage,
   Unit,
 } from '@wagmi/core';
+
+export type {
+  QueryFunctionArgs,
+  SetMaybeRef,
+} from './types';
