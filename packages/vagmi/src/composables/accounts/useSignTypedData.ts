@@ -5,9 +5,11 @@ import type {
 import {
   signTypedData,
 } from '@wagmi/core';
+import { computed, reactive } from 'vue';
 import { useMutation } from 'vue-query';
 
-import type { MutationConfig } from '../../types';
+import type { MutationConfig, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
 
 export type UseSignTypedDataArgs = Partial<SignTypedDataArgs>;
 
@@ -36,7 +38,20 @@ export function useSignTypedData({
   onMutate,
   onSettled,
   onSuccess,
-}: UseSignTypedDataArgs & UseSignTypedDataConfig = {}) {
+}: SetMaybeRef<UseSignTypedDataArgs> & UseSignTypedDataConfig = {}) {
+  const options = reactive({
+    mutationKey: computed(() => mutationKey({
+      domain: getMaybeRefValue(domain),
+      types: getMaybeRefValue(types),
+      value: getMaybeRefValue(value),
+    })),
+    mutationFn,
+    onError,
+    onMutate,
+    onSettled,
+    onSuccess,
+  });
+
   const {
     data,
     error,
@@ -49,12 +64,7 @@ export function useSignTypedData({
     reset,
     status,
     variables,
-  } = useMutation(mutationKey({ domain, types, value }), mutationFn, {
-    onError,
-    onMutate,
-    onSettled,
-    onSuccess,
-  });
+  } = useMutation(options);
 
   const signTypedData = (args?: SignTypedDataArgs) =>
     mutate(args || <SignTypedDataArgs>{ domain, types, value });
