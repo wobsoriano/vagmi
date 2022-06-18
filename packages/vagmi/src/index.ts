@@ -53,4 +53,6 @@ export type {
 export type {
   QueryFunctionArgs,
   SetMaybeRef,
+  QueryConfig,
+  MutationConfig,
 } from './types';
