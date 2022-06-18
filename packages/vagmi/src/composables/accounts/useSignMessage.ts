@@ -1,8 +1,10 @@
 import type { SignMessageArgs, SignMessageResult } from '@wagmi/core';
 import { signMessage } from '@wagmi/core';
+import { computed, reactive } from 'vue';
 import { useMutation } from 'vue-query';
 
-import type { MutationConfig } from '../../types';
+import type { MutationConfig, SetMaybeRef } from '../../types';
+import { getMaybeRefValue } from '../../utils';
 
 export type UseSignMessageArgs = Partial<SignMessageArgs>;
 
@@ -29,7 +31,16 @@ export function useSignMessage({
   onMutate,
   onSettled,
   onSuccess,
-}: UseSignMessageArgs & UseSignMessageConfig = {}) {
+}: SetMaybeRef<UseSignMessageArgs> & UseSignMessageConfig = {}) {
+  const options = reactive({
+    mutationKey: computed(() => mutationKey({ message: getMaybeRefValue(message) })),
+    mutationFn,
+    onError,
+    onMutate,
+    onSettled,
+    onSuccess,
+  });
+
   const {
     data,
     error,
@@ -42,12 +53,7 @@ export function useSignMessage({
     reset,
     status,
     variables,
-  } = useMutation(mutationKey({ message }), mutationFn, {
-    onError,
-    onMutate,
-    onSettled,
-    onSuccess,
-  });
+  } = useMutation(options);
 
   const signMessage = (args?: SignMessageArgs) => mutate(args || <SignMessageArgs>{ message });
   const signMessageAsync = (args?: SignMessageArgs) => mutateAsync(args || <SignMessageArgs>{ message });
