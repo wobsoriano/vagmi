@@ -29,5 +29,3 @@ dist-ssr
 
 .env
 
-# script generate
-docs/public/contributors.json
