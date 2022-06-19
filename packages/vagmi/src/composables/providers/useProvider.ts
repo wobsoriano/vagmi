@@ -12,11 +12,11 @@ export function useProvider<TProvider extends providers.BaseProvider>({
   chainId,
 }: UseProviderArgs = {}) {
 
-  const provider = ref(markRaw(getProvider<TProvider>({ chainId: getMaybeRefValue(chainId) })));
+  const provider = ref(<TProvider>markRaw(getProvider<TProvider>({ chainId: getMaybeRefValue(chainId) })));
 
   watchEffect((onInvalidate) => {
     const unwatch = watchProvider<TProvider>({ chainId: getMaybeRefValue(chainId) }, (provider_) => {
-      provider.value = markRaw(provider_);
+      provider.value = <TProvider>markRaw(provider_);
     });
 
     onInvalidate(() => {
