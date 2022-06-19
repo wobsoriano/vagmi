@@ -182,6 +182,22 @@ export async function actConnect(config: {
   await waitFor(() => getConnect(utils).isConnected.value);
 }
 
+export async function actDisconnect(config: {
+  utils: ReturnType<typeof renderComposable>
+}) {
+  const getDisconnect = (utils: ReturnType<typeof renderComposable>) =>
+    (utils.result as any)?.disconnect || utils.result
+  const utils = config.utils
+
+  const disconnect = getDisconnect(utils)
+  disconnect.disconnect?.()
+
+  await nextTick()
+
+  const { waitFor } = utils
+  await waitFor(() => getDisconnect(utils).isSuccess.value)
+}
+
 export function unrefAllProperties<T>(result: Omit<UseQueryReturnType<T, Error>, 'internal'>) {
   const realValues = {};
   Object.keys(result).forEach((key) => {
