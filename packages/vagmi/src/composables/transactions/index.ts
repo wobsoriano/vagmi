@@ -1,1 +1,1 @@
-export { useWaitForTransaction } from './useWaitForTransaction'
+export { useWaitForTransaction } from './useWaitForTransaction';

@@ -14,10 +14,10 @@ import type {
 } from 'vue';
 import {
   inject,
+  markRaw,
   readonly,
   shallowRef,
   triggerRef,
-  markRaw,
 } from 'vue';
 import { QueryClient, VueQueryPlugin } from 'vue-query';
 

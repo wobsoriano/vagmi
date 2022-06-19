@@ -1,13 +1,12 @@
-
 <script setup lang="ts">
-import { computed } from 'vue'
-const props = defineProps<{ fn: string }>()
-const contributors = ref([])
-fetch('/contributors.json').then(res => {
-  return res.json()
-}).then(data => {
-  contributors.value = data
-})
+import { computed } from 'vue';
+const props = defineProps<{ fn: string }>();
+const contributors = ref([]);
+fetch('/contributors.json').then((res) => {
+  return res.json();
+}).then((data) => {
+  contributors.value = data;
+});
 </script>
 
 <template>

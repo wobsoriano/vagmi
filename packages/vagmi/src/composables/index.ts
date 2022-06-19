@@ -6,7 +6,7 @@ export {
   useBalance,
   useSigner,
   useSignMessage,
-  useSignTypedData
+  useSignTypedData,
 } from './accounts';
 
 export { useProvider, useWebSocketProvider } from './providers';

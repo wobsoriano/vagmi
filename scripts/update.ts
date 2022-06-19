@@ -1,10 +1,9 @@
-import { generateContributors } from "./changelog";
-
+import { generateContributors } from './changelog';
 
 async function run() {
   await Promise.all([
-    generateContributors()
-  ])
+    generateContributors(),
+  ]);
 }
 
-run()
+run();

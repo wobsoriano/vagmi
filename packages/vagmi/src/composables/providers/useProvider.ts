@@ -11,7 +11,6 @@ export type UseProviderArgs = SetMaybeRef<Partial<GetProviderArgs>>;
 export function useProvider<TProvider extends providers.BaseProvider>({
   chainId,
 }: UseProviderArgs = {}) {
-
   const provider = ref(<TProvider>markRaw(getProvider<TProvider>({ chainId: getMaybeRefValue(chainId) })));
 
   watchEffect((onInvalidate) => {

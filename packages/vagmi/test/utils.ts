@@ -5,7 +5,8 @@ import { MockConnector } from '@wagmi/core/connectors/mock';
 import type { Chain, Connector, Provider, WebSocketProvider } from '@wagmi/core';
 import { allChains, chain as chain_ } from '@wagmi/core';
 
-import { isRef, nextTick, Ref } from 'vue';
+import type { Ref } from 'vue';
+import { isRef, nextTick } from 'vue';
 import type { CreateClientConfig } from '../src';
 import { createClient } from '../src';
 import type { UseQueryReturnType } from '../src/composables/utils';
@@ -190,20 +191,20 @@ export function unrefAllProperties<T>(result: Omit<UseQueryReturnType<T, Error>,
   return realValues as UseQueryReturnType<T, Error>;
 }
 
-export function unrefs(result: Record<string, any> | Ref[]):  Record<string, any> | [] {
+export function unrefs(result: Record<string, any> | Ref[]): Record<string, any> | [] {
   if (Array.isArray(result)) {
-    let realValues = {}
-    for (let key of result) {
+    const realValues = {};
+    for (const key of result) {
       // @ts-expect-error: Internal
       realValues[key] = isRef(result[key]) ? result[key].value : result[key];
     }
-    return realValues
+    return realValues;
   } else {
-    let realValues = {}
+    const realValues = {};
     Object.keys(result).forEach((key) => {
       // @ts-expect-error: Internal
       realValues[key] = isRef(result[key]) ? result[key].value : result[key];
     });
-    return realValues
+    return realValues;
   }
 }
