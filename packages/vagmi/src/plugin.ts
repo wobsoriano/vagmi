@@ -37,18 +37,18 @@ export function createClient<
       queries: {
         cacheTime: 1_000 * 60 * 60 * 24, // 24 hours
         // TODO: uncomment when persistor becomes available
-        networkMode: 'offlineFirst',
+        // networkMode: 'offlineFirst',
         refetchOnWindowFocus: false,
         retry: 0,
       },
       mutations: {
         // TODO: uncomment when persistor becomes available
-        networkMode: 'offlineFirst',
+        // networkMode: 'offlineFirst',
       },
     },
   }),
   ...config
-}: CreateClientConfig<TProvider, TWebSocketProvider> = {}) {
+}: CreateClientConfig<TProvider, TWebSocketProvider>) {
   const client = createVanillaClient<TProvider, TWebSocketProvider>(config);
   // TODO: Add persistor when it becomes available
   return Object.assign(client, { queryClient });
@@ -61,7 +61,10 @@ export type Client<
 
 export const VagmiClientKey: InjectionKey<Ref<Client>> = Symbol('vagmi');
 
-export function VagmiPlugin(client = createClient()): Plugin {
+export function VagmiPlugin<
+  TProvider extends Provider,
+  TWebSocketProvider extends WebSocketProvider,
+>(client: Client<TProvider, TWebSocketProvider>): Plugin {
   return {
     install(app) {
       // Setup vue-query
@@ -85,6 +88,7 @@ export function VagmiPlugin(client = createClient()): Plugin {
         originalUnmount();
       };
 
+      // @ts-expect-error: Internal
       app.provide(VagmiClientKey, markRaw(reactiveClient));
     },
   };
