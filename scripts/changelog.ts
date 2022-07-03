@@ -3,7 +3,7 @@ import { existsSync, rmSync } from 'fs';
 import md5 from 'md5';
 import Git from 'simple-git';
 import type { CommitInfo, ContributorInfo } from '@vueuse/metadata';
-import { getVagmiFuntionsWithPath } from './functions';
+import { getVagmiFunctionsWithPath } from './functions';
 import { uniq, writeFile } from './utils';
 
 const git = Git({
@@ -70,7 +70,7 @@ export async function getContributorsAt(path: string) {
 }
 
 export async function getFunctionContributors() {
-  const result = await Promise.all(getVagmiFuntionsWithPath().map(async (func: any) => {
+  const result = await Promise.all(getVagmiFunctionsWithPath().map(async (func: any) => {
     return [func.name, await getContributorsAt(func.path)] as const;
   }));
   return Object.fromEntries(result);

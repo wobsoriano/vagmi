@@ -1,6 +1,6 @@
 import { join, resolve } from 'path';
 import { readdirSync, statSync } from 'fs';
-export function getVagmiFuntionsWithPath() {
+export function getVagmiFunctionsWithPath() {
   const composablesPath = resolve(__dirname, '../packages/vagmi/src/composables');
   const collectComposablesPath: Record<string, any> = [];
 
@@ -14,6 +14,7 @@ export function getVagmiFuntionsWithPath() {
       } else {
         // e.g. useXXXX.ts
         // not useXXXX.test.ts
+        // eslint-disable-next-line prefer-regex-literals
         const regExp = new RegExp(/^use.*(?<!test.ts)$/g);
         if (regExp.test(dir)) {
           collectComposablesPath.push({
