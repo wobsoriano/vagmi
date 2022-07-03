@@ -9,6 +9,7 @@ describe('useBalance', () => {
       timeout: 5_000,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { internal, ...rest } = result;
 
     expect(unrefAllProperties(rest)).toMatchInlineSnapshot(`
