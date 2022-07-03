@@ -18,6 +18,7 @@
     "@ethersproject/providers": "^5.6.6",
     "@types/md5": "^2.3.2",
     "eslint": "^8.14.0",
+    "esno": "^0.16.3",
     "eventemitter3": "^4.0.7",
     "md5": "^2.3.0",
     "pnpm": "^7.5.0",

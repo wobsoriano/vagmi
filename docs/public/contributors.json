@@ -2,7 +2,7 @@
   "useAccount": [
     {
       "name": "Robert Soriano",
-      "count": 13,
+      "count": 14,
       "hash": "69c2efe29f2424b58b254436e6c67ca5"
     }
   ],
@@ -23,14 +23,14 @@
   "useDisconnect": [
     {
       "name": "Robert Soriano",
-      "count": 2,
+      "count": 3,
       "hash": "69c2efe29f2424b58b254436e6c67ca5"
     }
   ],
   "useNetwork": [
     {
       "name": "Robert Soriano",
-      "count": 8,
+      "count": 9,
       "hash": "69c2efe29f2424b58b254436e6c67ca5"
     }
   ],
@@ -68,6 +68,13 @@
       "name": "木荣",
       "count": 1,
       "hash": "8621e46a01f6d5b7caf864c9a18d497e"
+    }
+  ],
+  "useSwitchNetwork": [
+    {
+      "name": "Robert Soriano",
+      "count": 2,
+      "hash": "69c2efe29f2424b58b254436e6c67ca5"
     }
   ],
   "useEnsAddress": [
