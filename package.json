@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "packageManager": "pnpm@7.2.1",
+  "packageManager": "pnpm@7.5.0",
   "scripts": {
     "dev": "nr --parallel --filter playground --filter vagmi dev",
     "dev:docs": "nr update && nr --filter docs dev",
@@ -20,7 +20,7 @@
     "eslint": "^8.14.0",
     "eventemitter3": "^4.0.7",
     "md5": "^2.3.0",
-    "pnpm": "^7.2.1",
+    "pnpm": "^7.5.0",
     "simple-git": "^3.7.1"
   },
   "eslintConfig": {

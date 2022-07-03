@@ -13,7 +13,7 @@ importers:
       eslint: ^8.14.0
       eventemitter3: ^4.0.7
       md5: ^2.3.0
-      pnpm: ^7.2.1
+      pnpm: ^7.5.0
       simple-git: ^3.7.1
     devDependencies:
       '@antfu/eslint-config': 0.23.1_eslint@8.17.0
@@ -25,7 +25,7 @@ importers:
       eslint: 8.17.0
       eventemitter3: 4.0.7
       md5: 2.3.0
-      pnpm: 7.2.1
+      pnpm: 7.5.0
       simple-git: 3.7.1
 
   docs:
@@ -8896,8 +8896,8 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /pnpm/7.2.1:
-    resolution: {integrity: sha512-Z2Wg7YHxeit2U+0aSj+doBPF9+ER0e3VLOGuJOQbk8rzIxK6zMtrQ0ICieCUGPWRM0Vbwj8yIcTKzO22Yhs/Cg==}
+  /pnpm/7.5.0:
+    resolution: {integrity: sha512-sb9wJNyx/d8l3Gze2jI1y8BGNbb/ga+JT3SrGNiH+C5KbtZ4wmgePBWGjaiGugcpT9+vQ5MO//+QlVWhMCpedQ==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: true
