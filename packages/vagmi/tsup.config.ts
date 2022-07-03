@@ -24,5 +24,5 @@ export default defineConfig({
   dts: true,
   clean: false,
   format: ['cjs', 'esm'],
-  splitting: false,
+  splitting: true,
 });
