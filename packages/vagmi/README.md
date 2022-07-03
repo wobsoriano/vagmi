@@ -20,9 +20,13 @@ Connect a wallet in under 60 seconds.
 
 ```ts
 import { VagmiPlugin, createClient } from 'vagmi';
+import { getDefaultProvider } from 'ethers';
 import App from './App.vue';
 
-const client = createClient();
+const client = createClient({
+  autoConnect: true,
+  provider: getDefaultProvider(),
+});
 
 const app = createApp(App);
 app.use(VagmiPlugin(client));
@@ -34,7 +38,7 @@ app.mount('#app');
 import { useAccount, useConnect, useDisconnect } from 'vagmi'
 import { InjectedConnector } from 'vagmi/connectors/injected'
 
-const { data } = useAccount()
+const { address } = useAccount()
 const { connect } = useConnect({
   connector: new InjectedConnector(),
 })
@@ -42,8 +46,8 @@ const { disconnect } = useDisconnect()
 </script>
 
 <template>
-  <div v-if="data">
-    Connected to {{ data.address }}
+  <div v-if="address">
+    Connected to {{ address }}
     <button @click="disconnect">Disconnect</button>
   </div>
   <button v-else @click="connect">
@@ -52,7 +56,11 @@ const { disconnect } = useDisconnect()
 </template>
 ```
 
-In this example, we create a vagmi `Client` and pass it to the `VagmiPlugin` plugin. Next, we use the `useConnect` hook to connect an injected wallet (e.g. MetaMask) to the app. Finally, we show the connected account's address with `useAccount` and allow them to disconnect with `useDisconnect`.
+In this example, we create a vagmi `Client` and pass it to the `VagmiPlugin` Vue plugin. The client is set up to use the ethers Default Provider and automatically connect to previously connected wallets.
+
+Next, we use the `useConnect` composable to connect an injected wallet (e.g. MetaMask) to the app. Finally, we show the connected account's address with `useAccount` and allow them to disconnect with `useDisconnect`.
+
+We've only scratched the surface for what you can do with vagmi!
 
 ## Credits
 
