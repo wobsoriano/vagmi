@@ -1,6 +1,19 @@
 # vagmi
 
+[![npm (tag)](https://img.shields.io/npm/v/vagmi?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/vagmi) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vagmi?style=flat&colorA=000000&colorB=000000) ![NPM](https://img.shields.io/npm/l/vagmi?style=flat&colorA=000000&colorB=000000)
+
 Vue Composables for Ethereum
+
+## Features
+
+- 🚀 Composables for working with wallets, ENS, contracts, transactions, signing, etc.
+- 💼 Built-in wallet connectors for MetaMask, WalletConnect, Coinbase Wallet, and Injected
+- 👟 Caching, request deduplication, multicall, batching, and persistence
+- 🌀 Auto-refresh data on wallet, block, and network changes
+- 🦄 TypeScript ready
+- 🌳 [WIP] Test suite running against forked Ethereum network
+
+...and a lot more.
 
 ## Documentation
 
