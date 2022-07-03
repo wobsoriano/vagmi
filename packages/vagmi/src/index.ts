@@ -15,6 +15,7 @@ export {
   useBalance,
   useProvider,
   useNetwork,
+  useSwitchNetwork,
   useWebSocketProvider,
   useEnsName,
   useEnsAddress,

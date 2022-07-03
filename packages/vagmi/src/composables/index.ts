@@ -3,6 +3,7 @@ export {
   useConnect,
   useDisconnect,
   useNetwork,
+  useSwitchNetwork,
   useBalance,
   useSigner,
   useSignMessage,
