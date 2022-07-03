@@ -61,6 +61,7 @@ export {
 } from '@wagmi/core';
 export type {
   Chain,
+  ChainProviderFn,
   ConnectorData,
   ConnectorEvents,
   Storage,
