@@ -186,16 +186,16 @@ export async function actDisconnect(config: {
   utils: ReturnType<typeof renderComposable>
 }) {
   const getDisconnect = (utils: ReturnType<typeof renderComposable>) =>
-    (utils.result as any)?.disconnect || utils.result
-  const utils = config.utils
+    (utils.result as any)?.disconnect || utils.result;
+  const utils = config.utils;
 
-  const disconnect = getDisconnect(utils)
-  disconnect.disconnect?.()
+  const disconnect = getDisconnect(utils);
+  disconnect.disconnect?.();
 
-  await nextTick()
+  await nextTick();
 
-  const { waitFor } = utils
-  await waitFor(() => getDisconnect(utils).isSuccess.value)
+  const { waitFor } = utils;
+  await waitFor(() => getDisconnect(utils).isSuccess.value);
 }
 
 export function unrefAllProperties<T>(result: Omit<UseQueryReturnType<T, Error>, 'internal'>) {

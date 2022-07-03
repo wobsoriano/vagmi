@@ -1,15 +1,17 @@
-import { connect } from '@wagmi/core'
-import { MockConnector } from '@wagmi/core/connectors/mock'
+import { connect } from '@wagmi/core';
+import { MockConnector } from '@wagmi/core/connectors/mock';
 
 import {
   actConnect,
   renderComposable,
   setupClient,
-} from '../../../test'
-import { getSigners, unrefs, actDisconnect } from '../../../test/utils'
-import { UseConnectArgs, UseConnectConfig, useConnect } from './useConnect'
-import { useDisconnect } from './useDisconnect'
-import { UseNetworkArgs, UseNetworkConfig, useNetwork } from './useNetwork'
+} from '../../../test';
+import { actDisconnect, getSigners, unrefs } from '../../../test/utils';
+import type { UseConnectArgs, UseConnectConfig } from './useConnect';
+import { useConnect } from './useConnect';
+import { useDisconnect } from './useDisconnect';
+import type { UseNetworkArgs, UseNetworkConfig } from './useNetwork';
+import { useNetwork } from './useNetwork';
 
 function useNetworkWithConnectAndDisconnect(
   config: {
@@ -21,22 +23,22 @@ function useNetworkWithConnectAndDisconnect(
     connect: useConnect(config.connect),
     disconnect: useDisconnect(),
     network: useNetwork(config.network),
-  }
+  };
 }
 
 describe('useNetwork', () => {
   describe('mounts', () => {
     it('is connected', async () => {
-      const client = setupClient()
-      await connect({ connector: client.connectors[0]! })
+      const client = setupClient();
+      await connect({ connector: client.connectors[0]! });
 
-      const { result, waitFor } = renderComposable(() => useNetwork(), client)
+      const { result, waitFor } = renderComposable(() => useNetwork(), client);
 
-      await waitFor(() => result.isIdle.value)
+      await waitFor(() => result.isIdle.value);
 
-      const { activeChain, chains, ...res } = result
-      expect(activeChain.value?.id).toEqual(1)
-      expect(chains.value.length).toEqual(5)
+      const { activeChain, chains, ...res } = result;
+      expect(activeChain.value?.id).toEqual(1);
+      expect(chains.value.length).toEqual(5);
       expect(unrefs(res)).toMatchInlineSnapshot(`
         {
           "data": undefined,
@@ -52,16 +54,16 @@ describe('useNetwork', () => {
           "switchNetworkAsync": [Function],
           "variables": undefined,
         }
-      `)
-    })
+      `);
+    });
 
     it('is not connected', async () => {
-      const { result, waitFor } = renderComposable(() => useNetwork())
+      const { result, waitFor } = renderComposable(() => useNetwork());
 
-      await waitFor(() => result.isIdle.value)
+      await waitFor(() => result.isIdle.value);
 
-      const { chains, ...res } = result
-      expect(chains.value.length).toEqual(5)
+      const { chains, ...res } = result;
+      expect(chains.value.length).toEqual(5);
       expect(unrefs(res)).toMatchInlineSnapshot(`
         {
           "activeChain": undefined,
@@ -78,18 +80,18 @@ describe('useNetwork', () => {
           "switchNetworkAsync": undefined,
           "variables": undefined,
         }
-      `)
-    })
-  })
+      `);
+    });
+  });
 
   describe('configuration', () => {
     it('chainId', async () => {
-      const { result, waitFor } = renderComposable(() => useNetwork({ chainId: 1 }))
+      const { result, waitFor } = renderComposable(() => useNetwork({ chainId: 1 }));
 
-      await waitFor(() => result.isIdle.value)
+      await waitFor(() => result.isIdle.value);
 
-      const { chains, ...res } = result
-      expect(chains.value.length).toEqual(5)
+      const { chains, ...res } = result;
+      expect(chains.value.length).toEqual(5);
       expect(unrefs(res)).toMatchInlineSnapshot(`
         {
           "activeChain": undefined,
@@ -106,9 +108,9 @@ describe('useNetwork', () => {
           "switchNetworkAsync": undefined,
           "variables": undefined,
         }
-      `)
-    })
-  })
+      `);
+    });
+  });
 
   describe('return value', () => {
     describe('switchNetwork', () => {
@@ -119,21 +121,21 @@ describe('useNetwork', () => {
               chainId: 4,
             },
           }),
-        )
-        const { result, waitFor, nextTick } = utils
+        );
+        const { result, waitFor, nextTick } = utils;
 
-        await actConnect({ utils })
+        await actConnect({ utils });
         nextTick();
 
-        await result.network.switchNetwork.value?.()
+        await result.network.switchNetwork.value?.();
         await waitFor(() =>
-          result.network.isSuccess.value
-        )
+          result.network.isSuccess.value,
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { activeChain, chains, data, ...res } = result.network
-        expect(activeChain.value?.id).toMatchInlineSnapshot(`4`)
-        expect(data.value?.id).toMatchInlineSnapshot(`4`)
+        const { activeChain, chains, data, ...res } = result.network;
+        expect(activeChain.value?.id).toMatchInlineSnapshot('4');
+        expect(data.value?.id).toMatchInlineSnapshot('4');
         expect(unrefs(res)).toMatchInlineSnapshot(`
           {
             "error": null,
@@ -150,25 +152,25 @@ describe('useNetwork', () => {
               "chainId": 4,
             },
           }
-        `)
-      })
+        `);
+      });
 
       it('uses deferred args', async () => {
-        const utils = renderComposable(() => useNetworkWithConnectAndDisconnect())
-        const { result, waitFor, nextTick } = utils
+        const utils = renderComposable(() => useNetworkWithConnectAndDisconnect());
+        const { result, waitFor, nextTick } = utils;
 
-        await actConnect({ utils })
+        await actConnect({ utils });
         nextTick();
-        await result.network.switchNetwork.value?.(4)
+        await result.network.switchNetwork.value?.(4);
 
         await waitFor(() =>
-          result.network.isSuccess.value
-        )
+          result.network.isSuccess.value,
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { activeChain, chains, data, ...res } = result.network
-        expect(activeChain.value?.id).toMatchInlineSnapshot(`4`)
-        expect(data.value?.id).toMatchInlineSnapshot(`4`)
+        const { activeChain, chains, data, ...res } = result.network;
+        expect(activeChain.value?.id).toMatchInlineSnapshot('4');
+        expect(data.value?.id).toMatchInlineSnapshot('4');
         expect(unrefs(res)).toMatchInlineSnapshot(`
           {
             "error": null,
@@ -185,8 +187,8 @@ describe('useNetwork', () => {
               "chainId": 4,
             },
           }
-        `)
-      })
+        `);
+      });
 
       it('fails', async () => {
         const connector = new MockConnector({
@@ -194,20 +196,20 @@ describe('useNetwork', () => {
             flags: { failSwitchChain: true },
             signer: getSigners()[0]!,
           },
-        })
+        });
         const utils = renderComposable(() =>
           useNetworkWithConnectAndDisconnect({
             connect: { connector },
           }),
-        )
-        const { result, waitFor } = utils
+        );
+        const { result, waitFor } = utils;
 
-        await actConnect({ utils, connector })
-        await result.network.switchNetwork.value?.(4)
-        await waitFor(() => result.network.isError.value)
+        await actConnect({ utils, connector });
+        await result.network.switchNetwork.value?.(4);
+        await waitFor(() => result.network.isError.value);
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { activeChain, chains, ...res } = result.network
+        const { activeChain, chains, ...res } = result.network;
         expect(unrefs(res)).toMatchInlineSnapshot(`
           {
             "data": undefined,
@@ -225,30 +227,30 @@ describe('useNetwork', () => {
               "chainId": 4,
             },
           }
-        `)
-      })
+        `);
+      });
 
       it('unsupported chain', async () => {
         const utils = renderComposable(() =>
           useNetworkWithConnectAndDisconnect({
             network: { chainId: 69 },
           }),
-        )
-        const { result, waitFor, nextTick } = utils
+        );
+        const { result, waitFor, nextTick } = utils;
 
-        await actConnect({ utils })
+        await actConnect({ utils });
         nextTick();
-        await result.network.switchNetwork.value?.()
+        await result.network.switchNetwork.value?.();
 
         await waitFor(() =>
-          result.network.isSuccess.value
-        )
+          result.network.isSuccess.value,
+        );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { activeChain, chains, data, ...res } = result.network
-        expect(activeChain.value?.id).toMatchInlineSnapshot(`69`)
-        expect(activeChain.value?.unsupported).toMatchInlineSnapshot(`true`)
-        expect(data.value?.id).toMatchInlineSnapshot(`69`)
+        const { activeChain, chains, data, ...res } = result.network;
+        expect(activeChain.value?.id).toMatchInlineSnapshot('69');
+        expect(activeChain.value?.unsupported).toMatchInlineSnapshot('true');
+        expect(data.value?.id).toMatchInlineSnapshot('69');
         expect(unrefs(res)).toMatchInlineSnapshot(`
           {
             "error": null,
@@ -265,9 +267,9 @@ describe('useNetwork', () => {
               "chainId": 69,
             },
           }
-        `)
-      })
-    })
+        `);
+      });
+    });
 
     describe('switchNetworkAsync', () => {
       it('uses configuration', async () => {
@@ -277,12 +279,12 @@ describe('useNetwork', () => {
               chainId: 4,
             },
           }),
-        )
-        const { result, waitFor } = utils
+        );
+        const { result, waitFor } = utils;
 
-        await actConnect({ utils })
+        await actConnect({ utils });
 
-        const res = await result.network.switchNetworkAsync.value?.()
+        const res = await result.network.switchNetworkAsync.value?.();
         expect(res).toMatchInlineSnapshot(`
           {
             "blockExplorers": {
@@ -311,12 +313,12 @@ describe('useNetwork', () => {
             },
             "testnet": true,
           }
-        `)
+        `);
 
         await waitFor(() =>
-          result.network.isSuccess.value
-        )
-      })
+          result.network.isSuccess.value,
+        );
+      });
 
       it('throws error', async () => {
         const connector = new MockConnector({
@@ -324,39 +326,39 @@ describe('useNetwork', () => {
             flags: { failSwitchChain: true },
             signer: getSigners()[0]!,
           },
-        })
+        });
         const utils = renderComposable(() =>
           useNetworkWithConnectAndDisconnect({
             connect: { connector },
           }),
-        )
-        const { result, waitFor, nextTick } = utils
+        );
+        const { result, waitFor, nextTick } = utils;
 
-        await actConnect({ utils, connector })
+        await actConnect({ utils, connector });
         nextTick();
         await expect(
           result.network.switchNetworkAsync.value?.(4),
         ).rejects.toThrowErrorMatchingInlineSnapshot(
-          `"User rejected request"`,
-        )
+          '"User rejected request"',
+        );
 
-        await waitFor(() => result.network.isError.value)
-      })
-    })
-  })
+        await waitFor(() => result.network.isError.value);
+      });
+    });
+  });
 
   describe('behavior', () => {
     it('updates on connect and disconnect', async () => {
-      const utils = renderComposable(() => useNetworkWithConnectAndDisconnect())
-      const { result } = utils
+      const utils = renderComposable(() => useNetworkWithConnectAndDisconnect());
+      const { result } = utils;
 
-      await actConnect({ utils })
-      expect(result.network.activeChain.value?.id).toMatchInlineSnapshot(`1`)
-      await actDisconnect({ utils })
+      await actConnect({ utils });
+      expect(result.network.activeChain.value?.id).toMatchInlineSnapshot('1');
+      await actDisconnect({ utils });
       expect(result.network.activeChain.value).toMatchInlineSnapshot(
-        `undefined`,
-      )
-    })
+        'undefined',
+      );
+    });
 
     it('connector does not support programmatic switching', async () => {
       const connector = new MockConnector({
@@ -364,22 +366,22 @@ describe('useNetwork', () => {
           flags: { noSwitchChain: true },
           signer: getSigners()[0]!,
         },
-      })
+      });
       const utils = renderComposable(() =>
         useNetworkWithConnectAndDisconnect({
           connect: { connector },
         }),
-      )
-      const { result } = utils
+      );
+      const { result } = utils;
 
-      await actConnect({ utils, connector })
+      await actConnect({ utils, connector });
       try {
-        result.network.switchNetwork.value?.(4)
+        result.network.switchNetwork.value?.(4);
       } catch (error) {
         expect(error).toMatchInlineSnapshot(
-          `[TypeError: result.current.network.switchNetwork is not a function]`,
-        )
+          '[TypeError: result.current.network.switchNetwork is not a function]',
+        );
       }
-    })
-  })
-})
+    });
+  });
+});
