@@ -1,52 +1,70 @@
 import type { GetAccountResult } from '@wagmi/core';
 import { getAccount, watchAccount } from '@wagmi/core';
-import { useQueryClient } from 'vue-query';
-import type { UseQueryOptions } from 'vue-query';
-import { tryOnScopeDispose } from '@vueuse/core';
-import { useQuery } from '../utils/useQuery';
+import { toRefs, tryOnScopeDispose } from '@vueuse/core';
+import { ref, watchEffect } from 'vue';
+import { useClient } from '../../plugin';
 
-export type UseAccountConfig = Pick<
-  UseQueryOptions<GetAccountResult, Error>,
-  'suspense' | 'onError' | 'onSettled' | 'onSuccess'
->;
-
-export const queryKey = () => [{ entity: 'account' }] as const;
-
-const queryFn = () => {
-  const result = getAccount();
-  if (result.address)
-    return result;
-  return null;
-};
+export interface UseAccountConfig {
+  /** Function to invoke when connected */
+  onConnect?({
+    address,
+    connector,
+    isReconnected,
+  }: {
+    address?: GetAccountResult['address']
+    connector?: GetAccountResult['connector']
+    isReconnected: boolean
+  }): void
+  /** Function to invoke when disconnected */
+  onDisconnect?(): void
+}
 
 export function useAccount({
-  onError,
-  onSettled,
-  onSuccess,
+  onConnect,
+  onDisconnect,
 }: UseAccountConfig = {}) {
-  const queryClient = useQueryClient();
+  const client = useClient();
 
-  const accountQuery = useQuery(queryKey(), queryFn, {
-    staleTime: 0,
-    onError,
-    onSettled,
-    onSuccess,
-  });
+  const initialState = getAccount();
+  const account = ref(initialState);
 
   const unwatch = watchAccount((data) => {
-    // TODO: Fix reactivity and remove refetch
-    queryClient.setQueryData(queryKey(), data?.address
-      ? data
-      : {
-          address: null,
-          connector: null,
-        });
-    accountQuery.refetch();
+    account.value = data;
   });
 
   tryOnScopeDispose(() => {
     unwatch();
   });
 
-  return accountQuery;
+  watchEffect((onInvalidate) => {
+    // No need to subscribe if these callbacks aren't defined
+    if (!onConnect && !onDisconnect)
+      return;
+
+    // Trigger update when status changes
+    const unsubscribe = client.value.subscribe(
+      state => state.status,
+      (status, prevStatus) => {
+        if (!!onConnect && status === 'connected') {
+          const { address, connector } = getAccount();
+          onConnect({
+            address,
+            connector,
+            isReconnected: prevStatus === 'reconnecting',
+          });
+        }
+
+        if (
+          !!onDisconnect
+          && prevStatus !== 'connecting'
+          && status === 'disconnected'
+        )
+          onDisconnect();
+      },
+    );
+
+    onInvalidate(unsubscribe);
+  });
+
+  return toRefs(account);
 }
