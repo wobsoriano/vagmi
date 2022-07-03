@@ -38,7 +38,7 @@ app.mount('#app');
 import { useAccount, useConnect, useDisconnect } from 'vagmi'
 import { InjectedConnector } from 'vagmi/connectors/injected'
 
-const { address } = useAccount()
+const { address, isConnected } = useAccount()
 const { connect } = useConnect({
   connector: new InjectedConnector(),
 })
@@ -46,7 +46,7 @@ const { disconnect } = useDisconnect()
 </script>
 
 <template>
-  <div v-if="address">
+  <div v-if="isConnected">
     Connected to {{ address }}
     <button @click="disconnect">Disconnect</button>
   </div>
