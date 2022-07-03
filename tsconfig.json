@@ -16,6 +16,7 @@
       "@ethersproject/abstract-provider",
       "@ethersproject/abstract-signer",
       "@ethersproject/providers",
+      "eventemitter3",
       "vitest/globals"
     ]
   }
