@@ -29,12 +29,26 @@ export {
 } from './composables';
 
 export {
+  AddChainError,
+  ChainDoesNotSupportMulticallError,
+  ChainMismatchError,
+  ChainNotConfiguredError,
   Client,
   Connector,
+  ConnectorAlreadyConnectedError,
+  ConnectorNotFoundError,
+  ProviderChainsNotFound,
+  ProviderRpcError,
+  ResourceUnavailableError,
+  RpcError,
+  SwitchChainError,
+  SwitchChainNotSupportedError,
+  UserRejectedRequestError,
   alchemyRpcUrls,
   allChains,
   chain,
   chainId,
+  configureChains,
   createStorage,
   defaultChains,
   defaultL2Chains,
@@ -42,6 +56,8 @@ export {
   erc721ABI,
   etherscanBlockExplorers,
   infuraRpcUrls,
+  publicRpcUrls,
+  readContracts,
 } from '@wagmi/core';
 export type {
   Chain,

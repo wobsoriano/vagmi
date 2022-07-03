@@ -97,7 +97,7 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.2.0",
     "@vueuse/core": "^8.6.0",
-    "@wagmi/core": "^0.3.8",
+    "@wagmi/core": "^0.4.4",
     "@walletconnect/ethereum-provider": "^1.7.8",
     "klona": "^2.0.5",
     "vue-query": "2.0.0-alpha.5"
