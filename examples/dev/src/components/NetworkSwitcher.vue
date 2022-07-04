@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { useNetwork } from 'vagmi';
+import { useNetwork, useSwitchNetwork } from 'vagmi';
 
+const { chain } = useNetwork();
 const {
-  activeChain,
   chains,
   error,
   isLoading,
   pendingChainId,
   switchNetwork,
-} = useNetwork();
+} = useSwitchNetwork();
 </script>
 
 <template>
-  <div v-if="activeChain">
+  <div>
     <div>
-      Connected to {{ activeChain?.name ?? activeChain?.id }}
-      {{ activeChain?.unsupported ? ' (unsupported)' : '' }}
+      Connected to {{ chain?.name ?? chain?.id }}
+      {{ chain?.unsupported ? ' (unsupported)' : '' }}
     </div>
 
     <div v-if="switchNetwork">
       <template v-for="c in chains" :key="c.id">
-        <button v-if="c.id === activeChain?.id">
+        <button v-if="c.id === chain?.id">
           {{ c.name }}
           {{ isLoading && c.id === pendingChainId ? ' (switching)' : '' }}
         </button>
