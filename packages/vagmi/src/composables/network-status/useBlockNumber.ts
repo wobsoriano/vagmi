@@ -46,21 +46,22 @@ export function useBlockNumber({
   const webSocketProvider = useWebSocketProvider();
   const queryClient = useQueryClient();
 
+  const listener = (blockNumber: number) => {
+    // Just to be safe in case the provider implementation
+    // calls the event callback after .off() has been called
+    queryClient.setQueryData(queryKey({ chainId: getMaybeRefValue(chainId) }), blockNumber);
+  };
+
+  const provider_ = computed(() => webSocketProvider.value ?? provider.value);
+
   watchEffect((onInvalidate) => {
     if (!getMaybeRefValue(watch))
       return;
 
-    const listener = (blockNumber: number) => {
-      // Just to be safe in case the provider implementation
-      // calls the event callback after .off() has been called
-      queryClient.setQueryData(queryKey({ chainId: getMaybeRefValue(chainId) }), blockNumber);
-    };
-
-    const provider_ = webSocketProvider ?? provider;
-    provider_.on('block', listener);
+    provider_.value.on('block', listener);
 
     onInvalidate(() => {
-      provider_.off('block', listener);
+      provider_.value.off('block', listener);
     });
   });
 

@@ -144,7 +144,7 @@ export function useConnect({
     isIdle: status_.value === 'idle',
     isReconnecting: status_.value === 'reconnecting',
     pendingConnector: variables.value?.connector,
-    reset: reset.value,
+    reset,
     status: status_.value,
   }));
 

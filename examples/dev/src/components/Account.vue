@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useAccount, useEnsName } from 'vagmi';
-import { watch } from 'vue';
+import { useAccount, useBalance, useEnsName } from 'vagmi';
+import { watchEffect } from 'vue';
 
 const { address } = useAccount();
+const { data: balance } = useBalance({ addressOrName: address });
 const { data: ensNameData } = useEnsName({ address });
 
-watch(address, (val) => {
-  console.log('Account data', val);
+watchEffect(() => {
+  console.log('Address', address.value);
+  console.log('Balance', balance.value);
 });
 </script>
 
